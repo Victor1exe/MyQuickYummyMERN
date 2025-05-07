@@ -1,0 +1,983 @@
+[
+    {
+        "CategoryName": "Biryani/Rice",
+        "name": "Hyderabadi Chicken Biryani",
+        "img": "https://i.imgur.com/95D8xWz.jpg",
+        "options": [
+            {
+                "half": "180",
+                "full": "320"
+            }
+        ],
+        "description": "Authentic Hyderabadi dum biryani with succulent chicken pieces and aromatic basmati rice."
+    },
+    {
+        "CategoryName": "Biryani/Rice",
+        "name": "Egg Fried Rice",
+        "img": "https://i.imgur.com/JQzL3fD.jpg",
+        "options": [
+            {
+                "half": "120",
+                "full": "210"
+            }
+        ],
+        "description": "Flavorful fried rice with scrambled eggs, fresh vegetables and oriental spices."
+    },
+    {
+        "CategoryName": "Biryani/Rice",
+        "name": "Mutton Biryani",
+        "img": "https://i.imgur.com/KmZ4vTp.jpg",
+        "options": [
+            {
+                "half": "220",
+                "full": "380"
+            }
+        ],
+        "description": "Rich and flavorful biryani made with tender mutton pieces and premium basmati rice."
+    },
+    {
+        "CategoryName": "Biryani/Rice",
+        "name": "Jeera Rice",
+        "img": "https://i.imgur.com/pX7Wq9F.jpg",
+        "options": [
+            {
+                "half": "90",
+                "full": "160"
+            }
+        ],
+        "description": "Fragrant basmati rice tempered with cumin seeds and whole spices."
+    },
+    {
+        "CategoryName": "Biryani/Rice",
+        "name": "Prawns Biryani",
+        "img": "https://i.imgur.com/8sGtYQx.jpg",
+        "options": [
+            {
+                "half": "200",
+                "full": "350"
+            }
+        ],
+        "description": "Delicate prawns cooked with aromatic rice and special coastal spices."
+    },
+    {
+        "CategoryName": "Biryani/Rice",
+        "name": "Vegetable Pulao",
+        "img": "https://i.imgur.com/VnLhG3D.jpg",
+        "options": [
+            {
+                "half": "110",
+                "full": "190"
+            }
+        ],
+        "description": "Fluffy basmati rice cooked with mixed vegetables and mild spices."
+    },
+    {
+        "CategoryName": "Biryani/Rice",
+        "name": "Kolkata Biryani",
+        "img": "https://i.imgur.com/3jTzK5N.jpg",
+        "options": [
+            {
+                "half": "170",
+                "full": "300"
+            }
+        ],
+        "description": "Famous Kolkata-style biryani with potatoes, eggs and subtle flavors."
+    },
+    {
+        "CategoryName": "Biryani/Rice",
+        "name": "Schezwan Fried Rice",
+        "img": "https://i.imgur.com/mN0YQlW.jpg",
+        "options": [
+            {
+                "half": "130",
+                "full": "230"
+            }
+        ],
+        "description": "Spicy fried rice with Schezwan sauce and assorted vegetables."
+    },
+    {
+        "CategoryName": "Biryani/Rice",
+        "name": "Kashmiri Pulao",
+        "img": "https://i.imgur.com/9rZ8c2D.jpg",
+        "options": [
+            {
+                "half": "150",
+                "full": "270"
+            }
+        ],
+        "description": "Sweet and savory rice preparation with dry fruits and aromatic spices."
+    },
+    {
+        "CategoryName": "Pasta",
+        "name": "Creamy Alfredo Pasta",
+        "img": "https://i.imgur.com/LkY3z9T.jpg",
+        "options": [
+            {
+                "half": "140",
+                "full": "250"
+            }
+        ],
+        "description": "Classic fettuccine pasta in rich and creamy Alfredo sauce."
+    },
+    {
+        "CategoryName": "Pasta",
+        "name": "Arrabbiata Penne",
+        "img": "https://i.imgur.com/5tJ8QfB.jpg",
+        "options": [
+            {
+                "half": "120",
+                "full": "220"
+            }
+        ],
+        "description": "Spicy tomato-based pasta with garlic and red chili flakes."
+    },
+    {
+        "CategoryName": "Pasta",
+        "name": "Pesto Fusilli",
+        "img": "https://i.imgur.com/q3WjK9h.jpg",
+        "options": [
+            {
+                "half": "150",
+                "full": "270"
+            }
+        ],
+        "description": "Fusilli pasta tossed in fresh basil pesto sauce with pine nuts."
+    },
+    {
+        "CategoryName": "Pasta",
+        "name": "Carbonara Spaghetti",
+        "img": "https://i.imgur.com/vV4sTQd.jpg",
+        "options": [
+            {
+                "half": "160",
+                "full": "290"
+            }
+        ],
+        "description": "Classic Roman pasta with eggs, cheese, pancetta and black pepper."
+    },
+    {
+        "CategoryName": "Pasta",
+        "name": "Mac & Cheese",
+        "img": "https://i.imgur.com/J7nHkP5.jpg",
+        "options": [
+            {
+                "half": "130",
+                "full": "240"
+            }
+        ],
+        "description": "Elbow macaroni in rich, creamy cheese sauce with breadcrumb topping."
+    },
+    {
+        "CategoryName": "Pasta",
+        "name": "Vegetable Lasagna",
+        "img": "https://i.imgur.com/9rXzL2f.jpg",
+        "options": [
+            {
+                "half": "170",
+                "full": "310"
+            }
+        ],
+        "description": "Layered pasta with ricotta, mozzarella and fresh vegetables."
+    },
+    {
+        "CategoryName": "Pasta",
+        "name": "Aglio Olio Spaghetti",
+        "img": "https://i.imgur.com/mK4pQ9D.jpg",
+        "options": [
+            {
+                "half": "110",
+                "full": "200"
+            }
+        ],
+        "description": "Simple spaghetti with garlic, olive oil and chili flakes."
+    },
+    {
+        "CategoryName": "Pasta",
+        "name": "Pink Sauce Pasta",
+        "img": "https://i.imgur.com/3qTzL2n.jpg",
+        "options": [
+            {
+                "half": "140",
+                "full": "260"
+            }
+        ],
+        "description": "Penne pasta in creamy tomato sauce with herbs and cheese."
+    },
+    {
+        "CategoryName": "Pasta",
+        "name": "Mushroom Ravioli",
+        "img": "https://i.imgur.com/8sGtYQx.jpg",
+        "options": [
+            {
+                "half": "180",
+                "full": "330"
+            }
+        ],
+        "description": "Homemade ravioli stuffed with mushroom filling in sage butter sauce."
+    },
+    {
+        "CategoryName": "Pizza",
+        "name": "Margherita Pizza",
+        "img": "https://i.imgur.com/JQzL3fD.jpg",
+        "options": [
+            {
+                "regular": "120",
+                "medium": "220",
+                "large": "340"
+            }
+        ],
+        "description": "Classic pizza with tomato sauce, mozzarella and fresh basil."
+    },
+    {
+        "CategoryName": "Pizza",
+        "name": "Pepperoni Pizza",
+        "img": "https://i.imgur.com/KmZ4vTp.jpg",
+        "options": [
+            {
+                "regular": "150",
+                "medium": "280",
+                "large": "420"
+            }
+        ],
+        "description": "Traditional pizza topped with spicy pepperoni slices and cheese."
+    },
+    {
+        "CategoryName": "Pizza",
+        "name": "BBQ Chicken Pizza",
+        "img": "https://i.imgur.com/pX7Wq9F.jpg",
+        "options": [
+            {
+                "regular": "170",
+                "medium": "310",
+                "large": "460"
+            }
+        ],
+        "description": "Smoky BBQ sauce, grilled chicken, red onions and cilantro."
+    },
+    {
+        "CategoryName": "Pizza",
+        "name": "Veg Supreme Pizza",
+        "img": "https://i.imgur.com/VnLhG3D.jpg",
+        "options": [
+            {
+                "regular": "160",
+                "medium": "290",
+                "large": "440"
+            }
+        ],
+        "description": "Loaded with bell peppers, mushrooms, onions, olives and corn."
+    },
+    {
+        "CategoryName": "Pizza",
+        "name": "Hawaiian Pizza",
+        "img": "https://i.imgur.com/3jTzK5N.jpg",
+        "options": [
+            {
+                "regular": "140",
+                "medium": "260",
+                "large": "390"
+            }
+        ],
+        "description": "Classic combination of ham and pineapple on pizza."
+    },
+    {
+        "CategoryName": "Pizza",
+        "name": "Four Cheese Pizza",
+        "img": "https://i.imgur.com/mN0YQlW.jpg",
+        "options": [
+            {
+                "regular": "160",
+                "medium": "300",
+                "large": "450"
+            }
+        ],
+        "description": "Mozzarella, cheddar, parmesan and gorgonzola cheese blend."
+    },
+    {
+        "CategoryName": "Pizza",
+        "name": "Paneer Tikka Pizza",
+        "img": "https://i.imgur.com/9rZ8c2D.jpg",
+        "options": [
+            {
+                "regular": "150",
+                "medium": "280",
+                "large": "420"
+            }
+        ],
+        "description": "Indian style pizza with spicy paneer tikka topping."
+    },
+    {
+        "CategoryName": "Pizza",
+        "name": "Tandoori Chicken Pizza",
+        "img": "https://i.imgur.com/LkY3z9T.jpg",
+        "options": [
+            {
+                "regular": "170",
+                "medium": "310",
+                "large": "470"
+            }
+        ],
+        "description": "Tandoori marinated chicken pieces with onions and capsicum."
+    },
+    {
+        "CategoryName": "Pizza",
+        "name": "Truffle Mushroom Pizza",
+        "img": "https://i.imgur.com/5tJ8QfB.jpg",
+        "options": [
+            {
+                "regular": "190",
+                "medium": "350",
+                "large": "520"
+            }
+        ],
+        "description": "Gourmet pizza with wild mushrooms and truffle oil."
+    },
+    {
+        "CategoryName": "Starter",
+        "name": "Chicken Wings",
+        "img": "https://i.imgur.com/q3WjK9h.jpg",
+        "options": [
+            {
+                "half": "180",
+                "full": "320"
+            }
+        ],
+        "description": "Crispy fried chicken wings with your choice of sauce."
+    },
+    {
+        "CategoryName": "Starter",
+        "name": "Paneer Tikka",
+        "img": "https://i.imgur.com/vV4sTQd.jpg",
+        "options": [
+            {
+                "half": "160",
+                "full": "290"
+            }
+        ],
+        "description": "Cubes of paneer marinated in spices and grilled in tandoor."
+    },
+    {
+        "CategoryName": "Starter",
+        "name": "Chicken Lollipop",
+        "img": "https://i.imgur.com/J7nHkP5.jpg",
+        "options": [
+            {
+                "half": "170",
+                "full": "310"
+            }
+        ],
+        "description": "Spicy deep-fried chicken wings shaped like lollipops."
+    },
+    {
+        "CategoryName": "Starter",
+        "name": "Spring Rolls",
+        "img": "https://i.imgur.com/9rXzL2f.jpg",
+        "options": [
+            {
+                "half": "120",
+                "full": "220"
+            }
+        ],
+        "description": "Crispy vegetable spring rolls with sweet chili sauce."
+    },
+    {
+        "CategoryName": "Starter",
+        "name": "Fish Fingers",
+        "img": "https://i.imgur.com/mK4pQ9D.jpg",
+        "options": [
+            {
+                "half": "150",
+                "full": "280"
+            }
+        ],
+        "description": "Breaded fish fingers served with tartar sauce."
+    },
+    {
+        "CategoryName": "Starter",
+        "name": "Mushroom Cheese Balls",
+        "img": "https://i.imgur.com/3qTzL2n.jpg",
+        "options": [
+            {
+                "half": "140",
+                "full": "260"
+            }
+        ],
+        "description": "Deep fried cheese stuffed mushroom balls."
+    },
+    {
+        "CategoryName": "Starter",
+        "name": "Chilli Chicken",
+        "img": "https://i.imgur.com/8sGtYQx.jpg",
+        "options": [
+            {
+                "half": "170",
+                "full": "310"
+            }
+        ],
+        "description": "Indo-Chinese style spicy chicken starter."
+    },
+    {
+        "CategoryName": "Starter",
+        "name": "Honey Chilli Potato",
+        "img": "https://i.imgur.com/JQzL3fD.jpg",
+        "options": [
+            {
+                "half": "130",
+                "full": "240"
+            }
+        ],
+        "description": "Crispy potatoes tossed in sweet and spicy sauce."
+    },
+    {
+        "CategoryName": "Starter",
+        "name": "Cheese Garlic Bread",
+        "img": "https://i.imgur.com/KmZ4vTp.jpg",
+        "options": [
+            {
+                "half": "110",
+                "full": "200"
+            }
+        ],
+        "description": "Toasted bread with garlic butter and melted cheese."
+    },
+    {
+        "CategoryName": "Sweets",
+        "name": "Gulab Jamun",
+        "img": "https://i.imgur.com/pX7Wq9F.jpg",
+        "options": [
+            {
+                "half": "80",
+                "full": "150"
+            }
+        ],
+        "description": "Soft khoya balls deep fried and soaked in sugar syrup."
+    },
+    {
+        "CategoryName": "Sweets",
+        "name": "Rasmalai",
+        "img": "https://i.imgur.com/VnLhG3D.jpg",
+        "options": [
+            {
+                "half": "90",
+                "full": "170"
+            }
+        ],
+        "description": "Soft cottage cheese patties in sweetened, thickened milk."
+    },
+    {
+        "CategoryName": "Sweets",
+        "name": "Kaju Katli",
+        "img": "https://i.imgur.com/3jTzK5N.jpg",
+        "options": [
+            {
+                "half": "120",
+                "full": "220"
+            }
+        ],
+        "description": "Diamond-shaped cashew fudge with silver leaf garnish."
+    },
+    {
+        "CategoryName": "Sweets",
+        "name": "Rasgulla",
+        "img": "https://i.imgur.com/mN0YQlW.jpg",
+        "options": [
+            {
+                "half": "70",
+                "full": "130"
+            }
+        ],
+        "description": "Spongy cottage cheese balls in light sugar syrup."
+    },
+    {
+        "CategoryName": "Sweets",
+        "name": "Besan Ladoo",
+        "img": "https://i.imgur.com/9rZ8c2D.jpg",
+        "options": [
+            {
+                "half": "80",
+                "full": "150"
+            }
+        ],
+        "description": "Sweet gram flour balls with ghee and cardamom."
+    },
+    {
+        "CategoryName": "Sweets",
+        "name": "Jalebi",
+        "img": "https://i.imgur.com/LkY3z9T.jpg",
+        "options": [
+            {
+                "half": "60",
+                "full": "110"
+            }
+        ],
+        "description": "Crispy spiral-shaped sweet soaked in sugar syrup."
+    },
+    {
+        "CategoryName": "Sweets",
+        "name": "Shrikhand",
+        "img": "https://i.imgur.com/5tJ8QfB.jpg",
+        "options": [
+            {
+                "half": "90",
+                "full": "160"
+            }
+        ],
+        "description": "Sweetened strained yogurt flavored with saffron."
+    },
+    {
+        "CategoryName": "Sweets",
+        "name": "Badam Halwa",
+        "img": "https://i.imgur.com/q3WjK9h.jpg",
+        "options": [
+            {
+                "half": "140",
+                "full": "260"
+            }
+        ],
+        "description": "Rich almond pudding made with ghee and sugar."
+    },
+    {
+        "CategoryName": "Sweets",
+        "name": "Mysore Pak",
+        "img": "https://i.imgur.com/vV4sTQd.jpg",
+        "options": [
+            {
+                "half": "100",
+                "full": "180"
+            }
+        ],
+        "description": "Traditional South Indian sweet made with gram flour and ghee."
+    },
+    {
+        "CategoryName": "Cakes",
+        "name": "Black Forest",
+        "img": "https://i.imgur.com/J7nHkP5.jpg",
+        "options": [
+            {
+                "half": "250",
+                "full": "450"
+            }
+        ],
+        "description": "Chocolate sponge cake with cherries and whipped cream."
+    },
+    {
+        "CategoryName": "Cakes",
+        "name": "Red Velvet",
+        "img": "https://i.imgur.com/9rXzL2f.jpg",
+        "options": [
+            {
+                "half": "270",
+                "full": "490"
+            }
+        ],
+        "description": "Velvety red cake with cream cheese frosting."
+    },
+    {
+        "CategoryName": "Cakes",
+        "name": "Chocolate Truffle",
+        "img": "https://i.imgur.com/mK4pQ9D.jpg",
+        "options": [
+            {
+                "half": "280",
+                "full": "500"
+            }
+        ],
+        "description": "Rich chocolate cake with ganache and cocoa."
+    },
+    {
+        "CategoryName": "Cakes",
+        "name": "Pineapple Cake",
+        "img": "https://i.imgur.com/3qTzL2n.jpg",
+        "options": [
+            {
+                "half": "220",
+                "full": "400"
+            }
+        ],
+        "description": "Vanilla cake with pineapple filling and frosting."
+    },
+    {
+        "CategoryName": "Cakes",
+        "name": "Butterscotch Cake",
+        "img": "https://i.imgur.com/8sGtYQx.jpg",
+        "options": [
+            {
+                "half": "240",
+                "full": "430"
+            }
+        ],
+        "description": "Moist cake with butterscotch chips and frosting."
+    },
+    {
+        "CategoryName": "Cakes",
+        "name": "Cheesecake",
+        "img": "https://i.imgur.com/JQzL3fD.jpg",
+        "options": [
+            {
+                "half": "300",
+                "full": "550"
+            }
+        ],
+        "description": "Creamy New York style cheesecake with berry compote."
+    },
+    {
+        "CategoryName": "Cakes",
+        "name": "Tiramisu",
+        "img": "https://i.imgur.com/KmZ4vTp.jpg",
+        "options": [
+            {
+                "half": "260",
+                "full": "480"
+            }
+        ],
+        "description": "Italian dessert with coffee-soaked ladyfingers and mascarpone."
+    },
+    {
+        "CategoryName": "Cakes",
+        "name": "Fruit Cake",
+        "img": "https://i.imgur.com/pX7Wq9F.jpg",
+        "options": [
+            {
+                "half": "230",
+                "full": "420"
+            }
+        ],
+        "description": "Rich cake loaded with dry fruits and nuts."
+    },
+    {
+        "CategoryName": "Cakes",
+        "name": "Mango Mousse Cake",
+        "img": "https://i.imgur.com/VnLhG3D.jpg",
+        "options": [
+            {
+                "half": "290",
+                "full": "520"
+            }
+        ],
+        "description": "Light sponge cake with layers of mango mousse."
+    },
+    {
+        "CategoryName": "Chinese",
+        "name": "Hakka Noodles",
+        "img": "https://i.imgur.com/3jTzK5N.jpg",
+        "options": [
+            {
+                "half": "120",
+                "full": "220"
+            }
+        ],
+        "description": "Stir-fried noodles with vegetables in soy sauce."
+    },
+    {
+        "CategoryName": "Chinese",
+        "name": "Manchurian",
+        "img": "https://i.imgur.com/mN0YQlW.jpg",
+        "options": [
+            {
+                "half": "130",
+                "full": "240"
+            }
+        ],
+        "description": "Fried vegetable balls in spicy Manchurian sauce."
+    },
+    {
+        "CategoryName": "Chinese",
+        "name": "Chilli Chicken",
+        "img": "https://i.imgur.com/9rZ8c2D.jpg",
+        "options": [
+            {
+                "half": "170",
+                "full": "310"
+            }
+        ],
+        "description": "Crispy chicken tossed in spicy sauce with onions."
+    },
+    {
+        "CategoryName": "Chinese",
+        "name": "Spring Rolls",
+        "img": "https://i.imgur.com/LkY3z9T.jpg",
+        "options": [
+            {
+                "half": "110",
+                "full": "200"
+            }
+        ],
+        "description": "Crispy rolls stuffed with vegetables and noodles."
+    },
+    {
+        "CategoryName": "Chinese",
+        "name": "Szechuan Fried Rice",
+        "img": "https://i.imgur.com/5tJ8QfB.jpg",
+        "options": [
+            {
+                "half": "140",
+                "full": "250"
+            }
+        ],
+        "description": "Spicy fried rice with Szechuan peppercorns."
+    },
+    {
+        "CategoryName": "Chinese",
+        "name": "Dim Sum",
+        "img": "https://i.imgur.com/q3WjK9h.jpg",
+        "options": [
+            {
+                "half": "150",
+                "full": "280"
+            }
+        ],
+        "description": "Steamed dumplings with vegetable filling."
+    },
+    {
+        "CategoryName": "Chinese",
+        "name": "Hot & Sour Soup",
+        "img": "https://i.imgur.com/vV4sTQd.jpg",
+        "options": [
+            {
+                "half": "90",
+                "full": "160"
+            }
+        ],
+        "description": "Spicy and tangy soup with vegetables and tofu."
+    },
+    {
+        "CategoryName": "Chinese",
+        "name": "American Chop Suey",
+        "img": "https://i.imgur.com/J7nHkP5.jpg",
+        "options": [
+            {
+                "half": "130",
+                "full": "240"
+            }
+        ],
+        "description": "Crispy noodles topped with thick vegetable gravy."
+    },
+    {
+        "CategoryName": "Chinese",
+        "name": "Mapo Tofu",
+        "img": "https://i.imgur.com/9rXzL2f.jpg",
+        "options": [
+            {
+                "half": "140",
+                "full": "260"
+            }
+        ],
+        "description": "Spicy Sichuan dish with tofu in chili bean sauce."
+    },
+    {
+        "CategoryName": "Japanese",
+        "name": "Sushi Platter",
+        "img": "https://i.imgur.com/mK4pQ9D.jpg",
+        "options": [
+            {
+                "half": "300",
+                "full": "550"
+            }
+        ],
+        "description": "Assorted sushi including nigiri and maki rolls."
+    },
+    {
+        "CategoryName": "Japanese",
+        "name": "Ramen",
+        "img": "https://i.imgur.com/3qTzL2n.jpg",
+        "options": [
+            {
+                "half": "220",
+                "full": "400"
+            }
+        ],
+        "description": "Japanese noodle soup with broth, meat and vegetables."
+    },
+    {
+        "CategoryName": "Japanese",
+        "name": "Tempura",
+        "img": "https://i.imgur.com/8sGtYQx.jpg",
+        "options": [
+            {
+                "half": "180",
+                "full": "330"
+            }
+        ],
+        "description": "Lightly battered and deep-fried seafood and vegetables."
+    },
+    {
+        "CategoryName": "Japanese",
+        "name": "Teriyaki Chicken",
+        "img": "https://i.imgur.com/JQzL3fD.jpg",
+        "options": [
+            {
+                "half": "200",
+                "full": "370"
+            }
+        ],
+        "description": "Grilled chicken glazed with sweet teriyaki sauce."
+    },
+    {
+        "CategoryName": "Japanese",
+        "name": "Miso Soup",
+        "img": "https://i.imgur.com/KmZ4vTp.jpg",
+        "options": [
+            {
+                "half": "90",
+                "full": "160"
+            }
+        ],
+        "description": "Traditional Japanese soup with tofu and seaweed."
+    },
+    {
+        "CategoryName": "Japanese",
+        "name": "Dragon Roll",
+        "img": "https://i.imgur.com/pX7Wq9F.jpg",
+        "options": [
+            {
+                "half": "240",
+                "full": "440"
+            }
+        ],
+        "description": "Eel and cucumber roll topped with avocado."
+    },
+    {
+        "CategoryName": "Japanese",
+        "name": "Gyoza",
+        "img": "https://i.imgur.com/VnLhG3D.jpg",
+        "options": [
+            {
+                "half": "150",
+                "full": "280"
+            }
+        ],
+        "description": "Japanese pan-fried dumplings with pork filling."
+    },
+    {
+        "CategoryName": "Japanese",
+        "name": "Chirashi Bowl",
+        "img": "https://i.imgur.com/3jTzK5N.jpg",
+        "options": [
+            {
+                "half": "260",
+                "full": "480"
+            }
+        ],
+        "description": "Assorted sashimi served over sushi rice."
+    },
+    {
+        "CategoryName": "Japanese",
+        "name": "Yakitori",
+        "img": "https://i.imgur.com/mN0YQlW.jpg",
+        "options": [
+            {
+                "half": "170",
+                "full": "310"
+            }
+        ],
+        "description": "Skewered and grilled chicken with tare sauce."
+    },
+    {
+        "CategoryName": "Burger",
+        "name": "Classic Cheeseburger",
+        "img": "https://i.imgur.com/9rZ8c2D.jpg",
+        "options": [
+            {
+                "single": "120",
+                "combo": "200"
+            }
+        ],
+        "description": "Beef patty with cheese, lettuce and special sauce."
+    },
+    {
+        "CategoryName": "Burger",
+        "name": "Chicken Burger",
+        "img": "https://i.imgur.com/LkY3z9T.jpg",
+        "options": [
+            {
+                "single": "110",
+                "combo": "190"
+            }
+        ],
+        "description": "Crispy chicken patty with mayo and fresh veggies."
+    },
+    {
+        "CategoryName": "Burger",
+        "name": "Veggie Burger",
+        "img": "https://i.imgur.com/5tJ8QfB.jpg",
+        "options": [
+            {
+                "single": "100",
+                "combo": "180"
+            }
+        ],
+        "description": "Plant-based patty with lettuce, tomato and onion."
+    },
+    {
+        "CategoryName": "Burger",
+        "name": "Bacon Burger",
+        "img": "https://i.imgur.com/q3WjK9h.jpg",
+        "options": [
+            {
+                "single": "150",
+                "combo": "250"
+            }
+        ],
+        "description": "Beef patty with crispy bacon and cheddar cheese."
+    },
+    {
+        "CategoryName": "Burger",
+        "name": "Mushroom Swiss Burger",
+        "img": "https://i.imgur.com/vV4sTQd.jpg",
+        "options": [
+            {
+                "single": "140",
+                "combo": "240"
+            }
+        ],
+        "description": "Beef patty with sautéed mushrooms and Swiss cheese."
+    },
+    {
+        "CategoryName": "Burger",
+        "name": "Double Patty Burger",
+        "img": "https://i.imgur.com/J7nHkP5.jpg",
+        "options": [
+            {
+                "single": "170",
+                "combo": "290"
+            }
+        ],
+        "description": "Two beef patties with double cheese and toppings."
+    },
+    {
+        "CategoryName": "Burger",
+        "name": "Spicy Chicken Burger",
+        "img": "https://i.imgur.com/9rXzL2f.jpg",
+        "options": [
+            {
+                "single": "130",
+                "combo": "220"
+            }
+        ],
+        "description": "Spicy fried chicken patty with chipotle mayo."
+    },
+    {
+        "CategoryName": "Burger",
+        "name": "BBQ Burger",
+        "img": "https://i.imgur.com/mK4pQ9D.jpg",
+        "options": [
+            {
+                "single": "150",
+                "combo": "260"
+            }
+        ],
+        "description": "Beef patty with BBQ sauce and onion rings."
+    },
+    {
+        "CategoryName": "Burger",
+        "name": "Fish Burger",
+        "img": "https://i.imgur.com/3qTzL2n.jpg",
+        "options": [
+            {
+                "single": "140",
+                "combo": "240"
+            }
+        ],
+        "description": "Crispy fish fillet with tartar sauce and lettuce."
+    }
+]
