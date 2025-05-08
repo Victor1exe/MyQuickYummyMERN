@@ -22,5 +22,5 @@ app.use('/api', require("../backend/Routes/Createuser"));
 app.use('/api', require("../backend/Routes/DisplayData"));
 app.use('/api', require("../backend/Routes/OrderData"));
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Example app listening on port ${PORT}`)
 })
