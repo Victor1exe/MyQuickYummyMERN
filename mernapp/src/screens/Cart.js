@@ -79,9 +79,8 @@
 //   )
 // }
 
-
+import DeleteIcon from '@mui/icons-material/Delete';
 import React, { useEffect, useState } from 'react';
-import Delete from '@material-ui/icons/Delete';
 import { useCart, useDispatchCart } from '../components/ContextReducer';
 
 export default function Cart({ darkMode }) {
@@ -330,7 +329,7 @@ export default function Cart({ darkMode }) {
                           onClick={() => { dispatch({ type: "REMOVE", index: index }) }}
                           aria-label="Remove item"
                         >
-                          <Delete />
+                          <DeleteIcon />
                         </button>
                       </td>
                     </tr>
