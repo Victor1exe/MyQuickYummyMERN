@@ -1,0 +1,553 @@
+/* ---------------------------------------------------------------------------
+ * Order confirmation popup + the live delivery tracker.
+ * Same vocabulary as the rest of the app: the #fc8019 -> #f55d2c gradient,
+ * 12-16px radii, var(--shadow) and the translateY hover lift.
+ * ------------------------------------------------------------------------- */
+
+/* --- Confirmation popup -------------------------------------------------- */
+.order-popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    animation: popupFadeIn 0.25s ease-out;
+}
+
+.order-popup {
+    background: var(--card-bg, #ffffff);
+    color: var(--text-color, #333333);
+    border-radius: 22px;
+    padding: 2.5rem 2.25rem 0;
+    width: 100%;
+    max-width: 440px;
+    text-align: center;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+    animation: popupPop 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+    position: relative;
+}
+
+.order-popup-check {
+    width: 74px;
+    height: 74px;
+    margin: 0 auto 1.25rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4CAF50 0%, #2e9e52 100%);
+    color: #fff;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: popupCheck 0.5s ease-out 0.15s both;
+}
+
+.order-popup h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0 0 0.35rem;
+    color: var(--text-color, #333333);
+}
+
+.order-popup-receipt {
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    color: var(--dark-gray, #6c757d);
+    margin: 0 0 1.5rem;
+    font-weight: 600;
+}
+
+.order-popup-eta {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.order-popup-eta-value {
+    font-size: 3.6rem;
+    font-weight: 700;
+    line-height: 1;
+    background: linear-gradient(135deg, #fc8019 0%, #f55d2c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.order-popup-eta-unit {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark-gray, #6c757d);
+}
+
+.order-popup-eta-label {
+    font-size: 0.92rem;
+    color: var(--dark-gray, #6c757d);
+    margin: 0.35rem 0 1.5rem;
+}
+
+.order-popup-rider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-align: left;
+    background: rgba(252, 128, 25, 0.08);
+    border: 1px solid rgba(252, 128, 25, 0.2);
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    margin-bottom: 1.25rem;
+}
+
+.order-popup-rider-avatar {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fc8019 0%, #f55d2c 100%);
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.order-popup-rider-body {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.order-popup-rider-body strong {
+    font-size: 1.05rem;
+    color: var(--text-color, #333333);
+}
+
+.order-popup-rider-body span {
+    font-size: 0.87rem;
+    color: var(--dark-gray, #6c757d);
+    line-height: 1.5;
+}
+
+.order-popup-foot {
+    font-size: 0.85rem;
+    color: var(--dark-gray, #6c757d);
+    margin: 0 0 1.5rem;
+}
+
+/* Drains over the popup's five second lifetime. */
+.order-popup-timer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.07);
+}
+
+.order-popup-timer-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #fc8019, #f55d2c);
+    transform-origin: left center;
+    animation: popupTimer 5s linear forwards;
+}
+
+/* --- Live tracker -------------------------------------------------------- */
+.delivery-tracker {
+    position: fixed;
+    left: 50%;
+    bottom: 1.25rem;
+    transform: translateX(-50%);
+    width: min(760px, calc(100vw - 2rem));
+    background: var(--card-bg, #ffffff);
+    color: var(--text-color, #333333);
+    border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    padding: 1rem 1.25rem 1.25rem;
+    z-index: 2500;
+    animation: trackerSlideUp 0.4s ease-out;
+}
+
+.delivery-tracker.arrived {
+    border-color: #4CAF50;
+}
+
+.tracker-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.9rem;
+}
+
+.tracker-head-main {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    min-width: 0;
+}
+
+.tracker-head-main > div {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.tracker-head-main strong {
+    font-size: 1.02rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tracker-stage-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #fc8019 0%, #f55d2c 100%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.tracker-stage-icon.done {
+    background: linear-gradient(135deg, #4CAF50 0%, #2e9e52 100%);
+}
+
+.tracker-sub {
+    font-size: 0.82rem;
+    color: var(--dark-gray, #6c757d);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tracker-head-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-shrink: 0;
+}
+
+.tracker-countdown {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #fc8019;
+    white-space: nowrap;
+}
+
+.tracker-countdown.done {
+    color: #4CAF50;
+}
+
+.tracker-link {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #fc8019;
+    border: 1px solid #fc8019;
+    border-radius: 8px;
+    padding: 0.3rem 0.75rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.tracker-link:hover {
+    background: #fc8019;
+    color: #fff;
+}
+
+.tracker-icon-btn {
+    background: transparent;
+    border: none;
+    color: var(--dark-gray, #6c757d);
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.tracker-icon-btn:hover {
+    background: rgba(0, 0, 0, 0.06);
+    color: var(--text-color, #333333);
+}
+
+/* The rectangular block the bike fills. */
+.tracker-track {
+    position: relative;
+    height: 44px;
+    border-radius: 12px;
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.05) 0 14px,
+        rgba(0, 0, 0, 0.02) 14px 28px
+    );
+    border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+    overflow: hidden;
+}
+
+.tracker-fill {
+    position: relative;
+    height: 100%;
+    min-width: 44px;
+    border-radius: 11px 0 0 11px;
+    background: linear-gradient(90deg, rgba(252, 128, 25, 0.85) 0%, #f55d2c 100%);
+    transition: width 1s linear;
+}
+
+.delivery-tracker.arrived .tracker-fill {
+    background: linear-gradient(90deg, rgba(76, 175, 80, 0.85) 0%, #2e9e52 100%);
+    border-radius: 11px;
+}
+
+/* Rides the leading edge of the fill. */
+.tracker-bike {
+    position: absolute;
+    right: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.55rem;
+    line-height: 1;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    animation: bikeBob 0.9s ease-in-out infinite;
+}
+
+.delivery-tracker.arrived .tracker-bike {
+    animation: none;
+}
+
+.tracker-destination {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    opacity: 0.55;
+}
+
+.tracker-percent {
+    position: absolute;
+    right: 42px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--dark-gray, #6c757d);
+}
+
+/* Minimised state */
+.tracker-pill {
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    z-index: 2500;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    background: linear-gradient(135deg, #fc8019 0%, #f55d2c 100%);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 0.7rem 1.3rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    box-shadow: 0 10px 30px rgba(245, 93, 44, 0.4);
+    transition: all 0.3s ease;
+    animation: trackerSlideUp 0.35s ease-out;
+}
+
+.tracker-pill:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 36px rgba(245, 93, 44, 0.5);
+}
+
+.tracker-pill-bike {
+    font-size: 1.2rem;
+    animation: bikeBob 0.9s ease-in-out infinite;
+}
+
+/* --- Receipt cards in order history -------------------------------------- */
+.receipt-card {
+    grid-column: 1 / -1;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--primary-color);
+    border-radius: 14px;
+    padding: 1.35rem 1.5rem;
+    box-shadow: var(--shadow);
+    margin-top: 1.5rem;
+    transition: var(--transition);
+}
+
+.receipt-card:hover {
+    transform: translateY(-3px);
+}
+
+.receipt-card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+}
+
+.receipt-no {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.receipt-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.1rem;
+    font-size: 0.88rem;
+    color: var(--dark-gray);
+    margin-bottom: 1rem;
+}
+
+.receipt-meta strong {
+    color: var(--text-color);
+}
+
+.receipt-status {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 0.28rem 0.7rem;
+    border-radius: 50px;
+    color: #fff;
+    background: #6c757d;
+    white-space: nowrap;
+}
+
+.receipt-status.placed { background: #2196F3; }
+.receipt-status.preparing { background: #fc8019; }
+.receipt-status.picked_up { background: #9C27B0; }
+.receipt-status.out_for_delivery { background: #f55d2c; }
+.receipt-status.delivered { background: #4CAF50; }
+.receipt-status.cancelled { background: #dc3545; }
+
+.receipt-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.receipt-download-btn {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 0.55rem 1.2rem;
+    font-size: 0.92rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.receipt-download-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(245, 93, 44, 0.3);
+}
+
+.receipt-download-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.receipt-total {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-left: auto;
+}
+
+/* --- Animations ---------------------------------------------------------- */
+@keyframes popupFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes popupPop {
+    from { opacity: 0; transform: translateY(28px) scale(0.92); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes popupCheck {
+    from { transform: scale(0.3); opacity: 0; }
+    60% { transform: scale(1.15); }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes popupTimer {
+    from { transform: scaleX(1); }
+    to { transform: scaleX(0); }
+}
+
+@keyframes trackerSlideUp {
+    from { opacity: 0; transform: translate(-50%, 30px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@keyframes bikeBob {
+    0%, 100% { transform: translateY(-50%) rotate(0deg); }
+    50% { transform: translateY(-62%) rotate(-4deg); }
+}
+
+@media (max-width: 600px) {
+    .delivery-tracker {
+        width: calc(100vw - 1.5rem);
+        bottom: 0.75rem;
+        padding: 0.85rem 1rem 1rem;
+    }
+
+    .tracker-head-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .tracker-percent {
+        display: none;
+    }
+
+    .order-popup {
+        padding: 2rem 1.5rem 0;
+    }
+
+    .order-popup-eta-value {
+        font-size: 3rem;
+    }
+}
+
+/* The pill uses a plain transform, so it must not inherit the centred one. */
+@media (prefers-reduced-motion: reduce) {
+    .tracker-bike,
+    .tracker-pill-bike {
+        animation: none;
+    }
+
+    .tracker-fill {
+        transition: none;
+    }
+}

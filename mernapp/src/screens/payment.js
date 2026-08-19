@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { FaMobileAlt, FaUniversity, FaCreditCard } from 'react-icons/fa';
+
+// Previously imported from `react-icons`, which is not a dependency of this
+// app — the file only avoided breaking the build because nothing routed to it.
+// Font Awesome 6 is already loaded from public/index.html.
+const Icon = ({ name, style }) => <i className={`fas fa-${name}`} style={style} aria-hidden="true" />;
+const FaMobileAlt = (props) => <Icon name="mobile-screen-button" {...props} />;
+const FaUniversity = (props) => <Icon name="building-columns" {...props} />;
+const FaCreditCard = (props) => <Icon name="credit-card" {...props} />;
 
 const PaymentGatewayScreen = () => {
   const [activeMethod, setActiveMethod] = useState('upi');

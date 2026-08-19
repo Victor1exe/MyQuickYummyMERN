@@ -1,0 +1,420 @@
+/* Extracted from screens/Signup.js. Token overrides scoped to the container
+   for the same reason as login.css. */
+
+.signup-container {
+    --bg-color: #ffffff;
+    --text-color: #1d1d1f;
+    --primary-color: #ff7b00;
+    --primary-light: #ff9a3c;
+    --secondary-color: #ff5e1a;
+    --light-gray: #f5f5f7;
+    --dark-gray: #86868b;
+    --border-color: #d2d2d7;
+    --error-color: #ff3b30;
+    --success-color: #34c759;
+    --warning-color: #ffcc00;
+    --shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+    --transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.signup-container * {
+    box-sizing: border-box;
+}
+
+.signup-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    z-index: 0;
+    animation: authGradientShift 8s ease infinite;
+    background-size: 200% 200%;
+}
+
+.signup-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 650px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: authFadeIn 0.8s ease-out;
+}
+
+.signup-container .app-title {
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 30px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    letter-spacing: -0.5px;
+}
+
+.signup-card {
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(20px);
+    border-radius: 28px;
+    padding: 60px;
+    width: 100%;
+    box-shadow: var(--shadow);
+    transform: translateY(0);
+    transition: var(--transition);
+    animation: authCardAppear 0.6s ease-out;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.signup-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.signup-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin: 0 0 12px;
+    color: var(--text-color);
+    letter-spacing: -0.5px;
+}
+
+.signup-subtitle {
+    font-size: 1.2rem;
+    color: var(--dark-gray);
+    margin: 0;
+    font-weight: 400;
+}
+
+.signup-message {
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    animation: authFadeIn 0.3s ease-out;
+}
+
+.signup-message.error {
+    background-color: rgba(255, 59, 48, 0.1);
+    color: var(--error-color);
+}
+
+.signup-message.success {
+    background-color: rgba(52, 199, 89, 0.1);
+    color: var(--success-color);
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.field-label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 4px;
+}
+
+.signup-container .form-input {
+    width: 100%;
+    padding: 16px 20px;
+    font-size: 1.1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.95);
+    transition: var(--transition);
+    font-family: 'SF Pro Display', sans-serif;
+    color: var(--text-color);
+}
+
+.signup-container .form-input::placeholder {
+    color: var(--dark-gray);
+    opacity: 0.7;
+    font-weight: 400;
+}
+
+.signup-container .form-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(255, 123, 0, 0.2);
+}
+
+.signup-container .error-message {
+    color: var(--error-color);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: authShake 0.3s ease;
+}
+
+.signup-container .error-message i {
+    font-size: 0.95rem;
+}
+
+.field-hint {
+    font-size: 0.9rem;
+    color: var(--dark-gray);
+    margin-top: 4px;
+}
+
+.signup-container .password-input-container {
+    position: relative;
+}
+
+.signup-container .toggle-password {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--dark-gray);
+    cursor: pointer;
+    transition: var(--transition);
+    padding: 5px;
+    font-size: 1rem;
+}
+
+.signup-container .toggle-password:hover {
+    color: var(--primary-color);
+}
+
+.password-strength-container {
+    margin-top: 12px;
+}
+
+.password-strength-bars {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 6px;
+}
+
+.strength-bar {
+    height: 4px;
+    flex: 1;
+    background: var(--light-gray);
+    border-radius: 2px;
+    transition: var(--transition);
+}
+
+.strength-bar.active {
+    background: var(--warning-color);
+}
+
+.strength-bar.active.weak {
+    background: var(--error-color);
+}
+
+.strength-bar.active.good {
+    background: var(--warning-color);
+}
+
+.strength-bar.active.strong {
+    background: var(--success-color);
+}
+
+.password-strength-text {
+    font-size: 0.9rem;
+    color: var(--dark-gray);
+}
+
+.strength {
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+.strength.weak {
+    color: var(--error-color);
+}
+
+.strength.good {
+    color: var(--warning-color);
+}
+
+.strength.strong {
+    color: var(--success-color);
+}
+
+.password-tips {
+    margin-top: 12px;
+}
+
+.password-tips p {
+    font-size: 0.9rem;
+    color: var(--dark-gray);
+    margin-bottom: 6px;
+}
+
+.password-tips ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+
+.password-tips li {
+    font-size: 0.85rem;
+    color: var(--dark-gray);
+    position: relative;
+    padding-left: 18px;
+}
+
+.password-tips li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--error-color);
+}
+
+.password-tips li.valid:before {
+    content: "✓";
+    color: var(--success-color);
+}
+
+.signup-container .form-actions {
+    margin-top: 20px;
+}
+
+.signup-button {
+    width: 100%;
+    padding: 18px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    font-family: 'SF Pro Display', sans-serif;
+}
+
+.signup-button:hover:not(:disabled) {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 94, 26, 0.3);
+}
+
+.signup-button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.signup-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background-color: var(--dark-gray);
+}
+
+.signup-button.submitting {
+    pointer-events: none;
+}
+
+.signup-container .spinner {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: authSpin 1s ease-in-out infinite;
+}
+
+.signup-footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 1rem;
+}
+
+.login-text {
+    color: var(--dark-gray);
+}
+
+.login-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.login-link:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .signup-card {
+        padding: 50px 40px;
+    }
+
+    .signup-container .app-title {
+        font-size: 2.8rem;
+    }
+
+    .signup-title {
+        font-size: 2.2rem;
+    }
+
+    .password-tips ul {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .signup-card {
+        padding: 40px 30px;
+        border-radius: 24px;
+    }
+
+    .signup-container .app-title {
+        font-size: 2.4rem;
+    }
+
+    .signup-title {
+        font-size: 2rem;
+    }
+
+    .signup-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .signup-container .form-input {
+        padding: 14px 16px;
+        font-size: 1rem;
+    }
+
+    .signup-button {
+        padding: 16px;
+        font-size: 1rem;
+    }
+}

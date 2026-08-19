@@ -1,0 +1,76 @@
+/* ---------------------------------------------------------------------------
+ * Design tokens + global base.
+ *
+ * These rules used to live inside `<style jsx global>` in screens/Home.js.
+ * `<style jsx>` is a Next.js feature; in Create React App it renders a plain
+ * <style> tag, so the CSS was already global — it just could not be cached,
+ * could not be linted, and React warned about the unknown `jsx` prop.
+ * Moving it here changes nothing visually.
+ * ------------------------------------------------------------------------- */
+
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --card-bg: #ffffff;
+    --primary-color: #fc8019;
+    --secondary-color: #f55d2c;
+    --accent-color: #ff6b6b;
+    --light-gray: #f8f9fa;
+    --dark-gray: #6c757d;
+    --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    --search-text-color: #333333;
+    --search-placeholder-color: #6c757d;
+
+    /* Referenced by cart.css and myorder.css, previously undefined. */
+    --border-color: rgba(0, 0, 0, 0.1);
+    --hover-bg: rgba(0, 0, 0, 0.02);
+    --dark-primary: #e0700f;
+}
+
+.dark {
+    --bg-color: #121212;
+    --text-color: #f0f0f0;
+    --card-bg: #1e1e1e;
+    --light-gray: #2a2a2a;
+    --dark-gray: #aaaaaa;
+    --shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    --search-text-color: #ffffff;
+    --search-placeholder-color: #bbbbbb;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --hover-bg: rgba(255, 255, 255, 0.05);
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: var(--transition);
+    margin: 0;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+button {
+    cursor: pointer;
+    outline: none;
+}
+
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--primary-color);
+    color: white;
+    padding: 8px;
+    z-index: 100;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 0;
+}

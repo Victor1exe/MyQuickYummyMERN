@@ -1,0 +1,126 @@
+#!/bin/sh
+#
+# Blocks a commit that would introduce a secret.
+#
+# This repository already leaked a MongoDB password and a JWT secret because
+# both were hardcoded in source and committed; they are still in the history and
+# on the public remote. This hook exists so it cannot happen a third time.
+#
+# Enable it once per clone:
+#     git config core.hooksPath .githooks
+#
+# To bypass deliberately (you had better be sure):
+#     git commit --no-verify
+#
+# Implementation note: everything runs in two git invocations and one awk pass.
+# An earlier version looped `git show` per staged file, which took minutes on a
+# large commit — a pre-commit hook nobody waits for is a hook nobody keeps.
+
+staged=$(git diff --cached --name-only --diff-filter=ACM)
+[ -z "$staged" ] && exit 0
+
+# --- 1. Never commit an environment file -----------------------------------
+# Matches a file named `.env` / `.env.local` / `.env.production` ... and any
+# file whose extension is `.env` (db.env, production.env). `.env.example` ends
+# in `.example`, so it is correctly left alone.
+env_hits=$(
+    printf '%s\n' "$staged" |
+    grep -E '(^|/)\.env($|\.(local|development|production|test))|\.env$' || true
+)
+
+# --- 2 & 3. Scan only the lines this commit ADDS ----------------------------
+# Known-leaked values are assembled at runtime so this file is not itself a
+# place those strings live. Keep the split points where they are: written out
+# whole, either string below would make this hook match itself.
+#
+# These are deliberately PREFIXES, not the full values. A partial copy of a
+# secret is still a leak, and grepping history for one is the usual reason a
+# fragment gets pasted into a helper script — which is how
+# scripts/purge-secrets-from-history.sh came to carry the JWT prefix three
+# times. Matching the prefix catches that; matching only the whole value did
+# not.
+old_db_pw="mern""123"
+old_jwt="Mynameis""EndtoEnd"
+
+content_hits=$(
+    git diff --cached -U0 --diff-filter=ACM |
+    awk -v old_db_pw="$old_db_pw" -v old_jwt="$old_jwt" '
+        # Track which file the following hunks belong to.
+        /^\+\+\+ b\// {
+            file = substr($0, 7)
+            # Templates and docs are expected to show placeholder credentials.
+            # The known-leaked-value checks still apply to them, which is what
+            # stops a real secret hiding inside a "template".
+            is_doc = (file ~ /\.env\.example$/ || file ~ /\.md$/ || file ~ /\.txt$/ || file ~ /^\.githooks\//)
+            next
+        }
+        # Added lines only, and not the +++ header itself.
+        !/^\+/ || /^\+\+\+/ { next }
+        { line = substr($0, 2) }
+
+        # --- Known leaked values (checked everywhere) ---
+        index(line, old_db_pw) { print file "\tcontains the previously leaked database password"; next }
+        index(line, old_jwt)   { print file "\tcontains the previously leaked JWT secret, or part of it"; next }
+
+        is_doc { next }
+
+        # --- A connection string with inline credentials ---
+        # Skips placeholders such as USER:PASSWORD@, <user>:<password>@ or
+        # REDACTED:REDACTED@ — the whole password portion has to be the
+        # placeholder, so this cannot be used to smuggle a real value past.
+        {
+            probe = line
+            if (match(probe, /mongodb(\+srv)?:\/\/[^:\/[:space:]]+:[^@\/[:space:]]+@/)) {
+                cred = substr(probe, RSTART, RLENGTH)
+                if (cred !~ /:(<[^>]*>|[Pp][Aa][Ss][Ss][Ww][Oo][Rr][Dd]|[Pp][Aa][Ss][Ss]|[Pp][Ww][Dd]|[Ss][Ee][Cc][Rr][Ee][Tt]|[Rr][Ee][Dd][Aa][Cc][Tt][Ee][Dd]|[Yy][Oo][Uu][Rr][-_A-Za-z]*|[Xx][Xx][Xx]+|\*+|[Cc][Hh][Aa][Nn][Gg][Ee]-?[Mm][Ee])@/) {
+                    print file "\thas a MongoDB URI with an inline username:password"
+                    next
+                }
+            }
+        }
+
+        # --- A secret-shaped name assigned a literal ---
+        # Matched against a lower-cased copy so camelCase names such as
+        # `jwtSecret` and `apiKey` are caught as well as SCREAMING_SNAKE ones.
+        {
+            lower = tolower(line)
+
+            if (lower ~ /(secret|password|passwd|api_?key|access_?token|private_?key|auth_?token)[[:space:]]*[:=][[:space:]]*["'"'"'`][a-z0-9\/+_.-]{12,}/) {
+                # Reading from the environment, or an obvious placeholder, is fine.
+                if (lower !~ /(process\.env|required\(|optional\(|env\.|<|placeholder|replace-with|change-?me|your-|example|xxx|\*\*\*|react_app_)/) {
+                    print file "\tappears to assign a hardcoded credential"
+                }
+            }
+        }
+    ' | sort -u
+)
+
+if [ -z "$env_hits" ] && [ -z "$content_hits" ]; then
+    exit 0
+fi
+
+RED=$(printf '\033[31m')
+YELLOW=$(printf '\033[33m')
+RESET=$(printf '\033[0m')
+
+echo "${RED}Commit blocked: possible secret detected.${RESET}"
+echo
+
+if [ -n "$env_hits" ]; then
+    printf '%s\n' "$env_hits" | while IFS= read -r f; do
+        echo "  ${YELLOW}$f${RESET} is an environment file — keep it out of git (document it in .env.example)."
+    done
+fi
+
+if [ -n "$content_hits" ]; then
+    printf '%s\n' "$content_hits" | while IFS="$(printf '\t')" read -r f msg; do
+        echo "  ${YELLOW}$f${RESET} $msg."
+    done
+fi
+
+echo
+echo "Secrets belong in a git-ignored .env, loaded through backend/config/env.js."
+echo "Document the variable name in .env.example instead of committing its value."
+echo "Deliberate override: git commit --no-verify"
+
+exit 1

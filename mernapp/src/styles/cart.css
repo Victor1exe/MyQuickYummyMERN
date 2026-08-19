@@ -1,0 +1,278 @@
+/* Extracted from screens/Cart.js `<style jsx>` (both the empty and filled
+   states, which previously shipped two near-duplicate style blocks). */
+
+.cart-container {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    transition: var(--transition);
+    padding: 2rem 0;
+}
+
+.cart-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.cart-container .loading-spinner,
+.cart-container .error-message {
+    text-align: center;
+    padding: 3rem;
+    font-size: 1.2rem;
+}
+
+.cart-container .error-message {
+    color: #dc3545;
+}
+
+.cart-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+    animation: cartFadeInDown 1s ease-out;
+}
+
+.cart-table-container {
+    margin: 2rem 0;
+    overflow-x: auto;
+}
+
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    animation: cartFadeIn 0.5s ease-out;
+}
+
+.cart-table th {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem;
+    text-align: left;
+}
+
+.cart-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.cart-item:hover {
+    background-color: var(--hover-bg);
+    transition: var(--transition);
+}
+
+.cart-table .food-name {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.cart-table .price {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: var(--transition);
+}
+
+.delete-btn:hover {
+    transform: scale(1.2);
+}
+
+.cart-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    animation: cartFadeInUp 0.5s ease-out;
+}
+
+.total-price h2 {
+    margin: 0;
+    color: var(--text-color);
+}
+
+.checkout-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.checkout-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.checkout-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Empty-cart state */
+.no-items-container {
+    text-align: center;
+    padding: 2rem;
+    animation: cartFadeIn 1s ease-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+}
+
+.no-items-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+}
+
+.crying-emoji {
+    font-size: 10rem;
+    animation: cartShakeHead 2s infinite, cartBounce 2s infinite;
+}
+
+.food-facts-section {
+    margin-top: 4rem;
+    text-align: center;
+    animation: cartFadeIn 1s ease-out;
+}
+
+.food-facts-section h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+.food-fact-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: var(--shadow);
+    font-size: 1.2rem;
+    line-height: 1.6;
+    transition: var(--transition);
+}
+
+.happy-emoji {
+    font-size: 5rem;
+    margin-top: 2rem;
+    display: inline-block;
+    animation: cartJump 2s infinite, cartRotate 5s infinite;
+}
+
+/* Dark mode specific styles */
+.cart-container.dark .cart-table th {
+    background-color: var(--dark-primary);
+}
+
+.cart-container.dark .cart-table td {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.cart-container.dark .cart-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.cart-container.dark .cart-summary,
+.cart-container.dark .food-fact-card {
+    background: rgba(30, 30, 30, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Animations */
+@keyframes cartFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes cartFadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cartFadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cartShakeHead {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    75% { transform: rotate(-5deg); }
+}
+
+@keyframes cartBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes cartJump {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes cartRotate {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .cart-title {
+        font-size: 2rem;
+    }
+
+    .cart-summary {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .no-items-title {
+        font-size: 2rem;
+    }
+
+    .crying-emoji {
+        font-size: 8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cart-title {
+        font-size: 1.8rem;
+    }
+
+    .cart-table th,
+    .cart-table td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .no-items-title {
+        font-size: 1.8rem;
+    }
+
+    .crying-emoji {
+        font-size: 6rem;
+    }
+}

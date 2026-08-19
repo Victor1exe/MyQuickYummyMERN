@@ -1,0 +1,17 @@
+# Line endings.
+#
+# This repo is developed on Windows with core.autocrlf=true, so a fresh clone
+# rewrites text files to CRLF in the working tree. Git Bash tolerates that in a
+# shell script, but /bin/sh on Linux does not — a CRLF script fails with
+# "bad interpreter: /bin/sh^M". That bites when the scripts below are run from
+# WSL, from a container, or by a collaborator on macOS or Linux.
+#
+# Deliberately narrow: no blanket `* text=auto`, which would renormalise every
+# file in the repository at once and bury real changes in whitespace churn.
+
+*.sh            text eol=lf
+.githooks/*     text eol=lf
+Dockerfile      text eol=lf
+*.dockerignore  text eol=lf
+nginx.conf      text eol=lf
+.env.example    text eol=lf

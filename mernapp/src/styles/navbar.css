@@ -1,0 +1,362 @@
+/* Extracted from components/Navbar.js `<style jsx>`. */
+
+.navbar-container {
+    background: linear-gradient(135deg, #fc8019 0%, #f55d2c 100%);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    animation: navbarFadeIn 0.5s ease-out;
+}
+
+/* Dark mode base styles */
+.navbar-container.dark-mode {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+}
+
+.navbar-container.dark-mode.scrolled {
+    background: #1a1a1a;
+}
+
+/* Dark mode toggle button */
+.dark-mode-toggle {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-right: 1rem;
+    padding: 0.5rem;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* The original interpolated the hover colour from the darkMode flag; a class
+   selector reproduces it without needing JS in the stylesheet. */
+.dark-mode-toggle:hover {
+    transform: scale(1.1);
+    color: #fc8019;
+}
+
+.navbar-container.dark-mode .dark-mode-toggle:hover {
+    color: #ffcc00;
+}
+
+.scrolled .dark-mode-toggle {
+    color: #fc8019;
+}
+
+.dark-mode.scrolled .dark-mode-toggle {
+    color: #fc8019;
+}
+
+/* Original animations preserved */
+@keyframes navbarFadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.navbar-container.scrolled {
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.navbar-brand {
+    color: #fff !important;
+    letter-spacing: -0.5px;
+    position: relative;
+    display: inline-block;
+}
+
+.scrolled .navbar-brand {
+    color: #fc8019 !important;
+}
+
+.dark-mode .navbar-brand {
+    color: #fff !important;
+}
+
+.dark-mode.scrolled .navbar-brand {
+    color: #fc8019 !important;
+}
+
+.brand-text {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.brand-underline {
+    height: 2px;
+    background: #fff;
+    margin-top: 2px;
+    width: 0;
+    transition: width 0.3s ease;
+}
+
+.navbar-brand:hover .brand-underline {
+    width: 100%;
+}
+
+.navbar-brand:hover .brand-text {
+    transform: scale(1.05);
+}
+
+.scrolled .brand-underline {
+    background: #fc8019;
+}
+
+.dark-mode .brand-underline {
+    background: #fff;
+}
+
+.dark-mode.scrolled .brand-underline {
+    background: #fc8019;
+}
+
+/* Nav links */
+.navbar-container .nav-link {
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: #fff !important;
+    padding: 0.5rem 1rem !important;
+    position: relative;
+    transition: all 0.3s ease;
+    background: none;
+    border: none;
+    white-space: nowrap;
+}
+
+.scrolled .nav-link {
+    color: #333 !important;
+}
+
+.dark-mode .nav-link {
+    color: #fff !important;
+}
+
+.dark-mode.scrolled .nav-link {
+    color: #fff !important;
+}
+
+.navbar-container .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 1rem;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: width 0.3s ease;
+}
+
+.scrolled .nav-link::after {
+    background: #fc8019;
+}
+
+.dark-mode .nav-link::after {
+    background: #fff;
+}
+
+.dark-mode.scrolled .nav-link::after {
+    background: #fc8019;
+}
+
+.navbar-container .nav-link:hover::after {
+    width: calc(100% - 2rem);
+}
+
+.nav-item {
+    transition: transform 0.3s ease;
+}
+
+.nav-item:hover {
+    transform: scale(1.05);
+}
+
+/* Dropdown for the grouped "Explore" section links */
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 230px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+    padding: 0.5rem 0;
+    list-style: none;
+    margin: 0.35rem 0 0;
+    z-index: 1200;
+    animation: navbarFadeIn 0.25s ease-out;
+}
+
+.navbar-container.dark-mode .nav-dropdown-menu {
+    background: #1e1e1e;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.nav-dropdown-menu button {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    color: #333;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.navbar-container.dark-mode .nav-dropdown-menu button {
+    color: #f0f0f0;
+}
+
+.nav-dropdown-menu button:hover {
+    background: rgba(252, 128, 25, 0.1);
+    color: #fc8019;
+}
+
+.nav-dropdown-menu i {
+    width: 1.1rem;
+    text-align: center;
+    color: #fc8019;
+}
+
+/* Buttons */
+.navbar-container .btn {
+    font-weight: 500;
+    border-radius: 8px !important;
+    padding: 0.5rem 1.5rem !important;
+    margin: 0 0.5rem;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.login-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.login-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.login-btn:active {
+    transform: scale(0.95);
+}
+
+.signup-btn {
+    background: #fff;
+    color: #fc8019 !important;
+}
+
+.signup-btn:hover {
+    transform: scale(1.05);
+}
+
+.signup-btn:active {
+    transform: scale(0.95);
+}
+
+/* Cart button */
+.cart-btn {
+    background: #fff;
+    color: #fc8019 !important;
+    border-radius: 8px;
+    padding: 0.5rem 1.5rem;
+    margin: 0 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.cart-btn:hover {
+    transform: scale(1.05);
+}
+
+.cart-btn:active {
+    transform: scale(0.95);
+}
+
+/* Logout button */
+.logout-btn {
+    background: transparent;
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 0.5rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    transform: scale(1.05);
+}
+
+.logout-btn:active {
+    transform: scale(0.95);
+}
+
+.scrolled .logout-btn {
+    color: #fc8019 !important;
+    border-color: #fc8019;
+}
+
+.dark-mode .logout-btn {
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.dark-mode.scrolled .logout-btn {
+    color: #fc8019 !important;
+    border-color: #fc8019;
+}
+
+/* Toggler icon */
+.navbar-toggler-icon {
+    transition: transform 0.3s ease;
+}
+
+.navbar-toggler-icon.open {
+    transform: rotate(90deg);
+}
+
+/* Pulse animation */
+.pulse {
+    animation: navbarPulse 2s infinite;
+}
+
+@keyframes navbarPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+@media (max-width: 991px) {
+    .nav-dropdown-menu {
+        position: static;
+        box-shadow: none;
+        background: transparent;
+        min-width: 0;
+        padding-left: 1rem;
+    }
+
+    .nav-dropdown-menu button,
+    .navbar-container.dark-mode .nav-dropdown-menu button {
+        color: #fff;
+    }
+
+    .navbar-container.scrolled .nav-dropdown-menu button {
+        color: #333;
+    }
+}

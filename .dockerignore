@@ -1,0 +1,30 @@
+# Repository root.
+#
+# NOTE: docker-compose.yml builds from ./mernapp and ./mernapp/backend, and
+# Docker reads .dockerignore from the CONTEXT root — so the files that actually
+# take effect for those builds are mernapp/.dockerignore and
+# mernapp/backend/.dockerignore. This one only applies if you build an image
+# using the repository root as the context.
+
+node_modules
+**/node_modules
+
+build
+dist
+coverage
+
+.env
+.env.*
+!.env.example
+
+.git
+.gitignore
+.vscode
+.idea
+*.log
+
+mongo-data
+
+.DS_Store
+Thumbs.db
+desktop.ini

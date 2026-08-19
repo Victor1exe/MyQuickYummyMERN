@@ -1,20 +1,33 @@
+/* Base document styles. The design tokens and page-level rules live in
+   src/styles/ — see tokens.css. */
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: "NHaasGroteskDSPro-65Md"  !important;
+  /* Loaded from public/index.html; the fallbacks keep the layout intact if the
+     web font fails. The original had two competing font-family declarations in
+     this rule, the first of which was dead. */
+  font-family: 'NHaasGroteskDSPro-65Md', 'SF Pro Display', -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-#carousel{
+#carousel {
   max-height: 600px;
 }
 
-
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

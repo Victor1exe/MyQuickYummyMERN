@@ -1,0 +1,98 @@
+[
+    {
+        "question": "How do I place an order on My Quick Yummy?",
+        "answer": "Pick a food category from the category strip on the home page, browse the dishes that appear, and hit Add to Cart. Clicking the dish itself opens the kitchen that cooks it, where you can add anything else from the same menu with the + and - buttons. When you're done, open My Cart and check out.",
+        "category": "Ordering",
+        "sortOrder": 1
+    },
+    {
+        "question": "Can I order from more than one restaurant in a single order?",
+        "answer": "Your cart can hold dishes from several kitchens. Each kitchen prepares its part separately, so those items may arrive in two drops with a short gap between them. The delivery fee is charged once.",
+        "category": "Ordering",
+        "sortOrder": 2
+    },
+    {
+        "question": "Can I change or cancel an order after placing it?",
+        "answer": "You can cancel free of charge until the kitchen accepts the order, which is usually within 60 seconds. After that the food is already on the pan, so a cancellation is charged at the item price. Changes to an accepted order are not possible; cancel and reorder instead.",
+        "category": "Ordering",
+        "sortOrder": 3
+    },
+    {
+        "question": "Which payment methods do you accept?",
+        "answer": "UPI, all major credit and debit cards, net banking from 40+ banks, and cash on delivery on orders under Rs. 2,000. Wallet balance and promo credits are applied automatically at checkout before any other method is charged.",
+        "category": "Payments",
+        "sortOrder": 1
+    },
+    {
+        "question": "When do refunds reach my account?",
+        "answer": "Refunds are raised the moment a cancellation or a complaint is approved. UPI and wallet refunds land within 24 hours; card and net banking refunds take 5-7 working days depending on your bank.",
+        "category": "Payments",
+        "sortOrder": 2
+    },
+    {
+        "question": "Is my card information stored anywhere?",
+        "answer": "No. Card details are tokenised by our payment processor and never touch our servers. We store only the last four digits and the card network so you can recognise a saved card.",
+        "category": "Payments",
+        "sortOrder": 3
+    },
+    {
+        "question": "How long does delivery usually take?",
+        "answer": "Most orders arrive in 25 to 40 minutes. Each dish card shows the kitchen's own preparation estimate, and live tracking starts the moment a rider picks the order up.",
+        "category": "Delivery",
+        "sortOrder": 1
+    },
+    {
+        "question": "What happens if my food arrives cold or damaged?",
+        "answer": "Report it from the order screen within two hours of delivery, with a photo where possible. Approved complaints are refunded in full to your original payment method, and the kitchen is notified so it can fix the packaging.",
+        "category": "Delivery",
+        "sortOrder": 2
+    },
+    {
+        "question": "Do you deliver during heavy rain or late at night?",
+        "answer": "Yes, subject to rider safety. During severe weather we pause dispatch in the affected zone rather than send riders out, and the app will tell you when your area is paused. Late-night delivery runs until 4am wherever a partner kitchen is open.",
+        "category": "Delivery",
+        "sortOrder": 3
+    },
+    {
+        "question": "Do I need an account to browse the menu?",
+        "answer": "Browsing categories, dishes and kitchens is open to everyone. You need an account only to build a cart, check out, and see your order history.",
+        "category": "Account",
+        "sortOrder": 1
+    },
+    {
+        "question": "How do I reset my password?",
+        "answer": "Use the Forgot password link on the login screen. A reset link is sent to your registered email and stays valid for 30 minutes.",
+        "category": "Account",
+        "sortOrder": 2
+    },
+    {
+        "question": "How do I list my restaurant, cloud kitchen or food stall?",
+        "answer": "Write to partners@myquickyummy.com with your FSSAI licence number, menu and service area. Onboarding takes three to five working days and includes a kitchen hygiene check. There is no joining fee.",
+        "category": "Partners",
+        "sortOrder": 1
+    },
+    {
+        "question": "What commission does My Quick Yummy charge partners?",
+        "answer": "A flat 18% of the order value on delivery orders, with no listing fee and no charge on cancelled orders. Payouts are settled every Tuesday for the previous week.",
+        "category": "Partners",
+        "sortOrder": 2
+    },
+    {
+        "question": "How do I sign up as a delivery partner?",
+        "answer": "Apply through the Ride with us link in the footer with a valid ID, a driving licence where your vehicle needs one, and a bank account. Verification takes 48 hours, after which you can pick your own shifts.",
+        "category": "Riders",
+        "sortOrder": 1
+    },
+    {
+        "question": "How much can a delivery partner earn?",
+        "answer": "Earnings are per delivery plus a distance component, with surge during peak hours and weather. Full-time riders on our network average Rs. 24,000 to Rs. 34,000 a month, and payouts are instant to the linked bank account.",
+        "category": "Riders",
+        "sortOrder": 2
+    },
+    {
+        "question": "Are delivery partners insured?",
+        "answer": "Yes. Every verified rider on an active shift is covered by accident and hospitalisation insurance paid for by My Quick Yummy, at no deduction from their earnings.",
+        "category": "Riders",
+        "sortOrder": 3
+    }
+]
