@@ -1,0 +1,65 @@
+[
+    {
+        "title": "Delivery Partner Engagement Policy",
+        "slug": "delivery-partner-engagement-policy",
+        "category": "Rider Policy",
+        "summary": "How riders are onboarded, scheduled, paid and insured on the My Quick Yummy network.",
+        "version": "3.2",
+        "isPublished": true,
+        "content": "1. ELIGIBILITY\nA delivery partner must be at least 18 years old, hold a government photo ID, and hold a valid driving licence where the chosen vehicle requires one. Bicycle and on-foot riders are exempt from the licence requirement.\n\n2. VERIFICATION\nOnboarding includes an identity check, a vehicle document check and a background check. Verification completes within 48 hours. A rider may not accept orders before the verified flag is set on their profile.\n\n3. SHIFTS AND AVAILABILITY\nRiders choose their own shifts from the morning, evening, night and flexible bands. There is no minimum hour commitment and no penalty for declining an order. A rider marks themselves available, ready to go, busy, on break or offline; only available and ready-to-go riders receive dispatch offers.\n\n4. EARNINGS\nPayment is a per-delivery base plus a distance component, with a surge multiplier during peak hours, heavy rain and declared festival days. Payouts are instant to the linked bank account and carry no processing fee. Tips are passed on in full.\n\n5. INSURANCE AND SAFETY\nEvery verified rider on an active shift is covered by accident and hospitalisation insurance at no cost to the rider. Dispatch is paused zone-wide during severe weather rather than routed around it. Riders may refuse any delivery they judge unsafe without affecting their rating.\n\n6. RATINGS AND OFFBOARDING\nRatings are computed over a rolling 90-day window and shown to the rider in full. A rider below 3.5 is offered retraining before any action is taken. Offboarding requires two documented incidents or one serious safety or food-tampering breach.\n\n---\nSample content, seeded for demonstration purposes."
+    },
+    {
+        "title": "Partner Kitchen Onboarding and Standards",
+        "slug": "partner-kitchen-onboarding-and-standards",
+        "category": "Partner Policy",
+        "summary": "Listing requirements, hygiene standards, commission and payout terms for partner kitchens.",
+        "version": "2.4",
+        "isPublished": true,
+        "content": "1. WHO CAN LIST\nRestaurants, hotel kitchens, cloud kitchens, food stalls, bakeries and cafes may list. A valid FSSAI licence covering the listed address is mandatory and is re-checked at every renewal.\n\n2. ONBOARDING\nOnboarding takes three to five working days and includes a hygiene inspection, a menu and pricing review and a packaging check. There is no joining fee and no listing fee.\n\n3. MENU ACCURACY\nEvery listed dish must carry a truthful description, an accurate vegetarian or non-vegetarian marker and a photograph of the dish as it is actually served. Allergen information must be declared where the dish contains nuts, dairy, gluten, egg, soy or shellfish.\n\n4. PREPARATION AND PACKAGING\nPreparation time shown on a dish card is a commitment, not an estimate. Hot and cold items must be bagged separately and liquids must be sealed at the lid. Tamper-evident packaging is required on all orders.\n\n5. COMMISSION AND PAYOUTS\nCommission is a flat 18% of order value on delivery orders. Cancelled orders carry no commission. Settlement runs every Tuesday for the previous Monday-to-Sunday week.\n\n6. SUSPENSION\nA partner may be suspended for a failed hygiene check, repeated menu misrepresentation or a cancellation rate above 8% over 30 days. Suspension is preceded by written notice except where food safety is at immediate risk.\n\n---\nSample content, seeded for demonstration purposes."
+    },
+    {
+        "title": "Customer Refund and Cancellation Policy",
+        "slug": "customer-refund-and-cancellation-policy",
+        "category": "Customer Policy",
+        "summary": "When an order can be cancelled, what is charged, and how quickly refunds are settled.",
+        "version": "4.0",
+        "isPublished": true,
+        "content": "1. CANCELLATION BEFORE ACCEPTANCE\nAn order may be cancelled free of charge until the kitchen accepts it, typically within 60 seconds of placement. The full amount is released immediately.\n\n2. CANCELLATION AFTER ACCEPTANCE\nOnce the kitchen has started cooking, a cancellation is charged at the item price. The delivery fee is not charged. Orders already picked up by a rider cannot be cancelled.\n\n3. COMPLAINTS\nA complaint about a missing item, a wrong item, spillage or a cold delivery must be raised within two hours of delivery from the order screen. A photograph materially speeds up approval.\n\n4. REFUND TIMELINES\nApproved refunds are raised the same day. UPI and wallet refunds settle within 24 hours; card and net banking refunds settle in five to seven working days subject to the issuing bank.\n\n5. REPEAT CLAIMS\nAccounts raising an unusually high volume of claims are reviewed manually. Genuine patterns, such as a single problem kitchen, are actioned against the kitchen, not the customer.\n\n---\nSample content, seeded for demonstration purposes."
+    },
+    {
+        "title": "Food Safety and Cold Chain SOP",
+        "slug": "food-safety-and-cold-chain-sop",
+        "category": "Internal SOP",
+        "summary": "Internal handling standard for temperature, packaging integrity and hand-off between kitchen and rider.",
+        "version": "1.8",
+        "isPublished": false,
+        "content": "1. TEMPERATURE BANDS\nHot food leaves the kitchen at or above 65°C and must be handed over within 20 minutes of packing. Cold and frozen items leave at or below 5°C and travel in an insulated sleeve.\n\n2. BAG SEGREGATION\nHot and cold items never share a compartment. Desserts and beverages travel upright in the secondary compartment.\n\n3. HAND-OFF\nThe rider verifies the tamper seal and the order code at pickup. A broken seal is refused at the counter and re-cooked at the kitchen's cost.\n\n4. ESCALATION\nAny temperature or seal failure is logged against the kitchen and reviewed weekly by the quality team. Three failures in 30 days trigger an on-site inspection.\n\n---\nInternal document. Sample content, seeded for demonstration purposes."
+    },
+    {
+        "title": "Rider Dispatch and Zone Allocation SOP",
+        "slug": "rider-dispatch-and-zone-allocation-sop",
+        "category": "Internal SOP",
+        "summary": "How the dispatch engine picks a rider, and when a zone is paused.",
+        "version": "2.1",
+        "isPublished": false,
+        "content": "1. DISPATCH ORDER\nOffers go first to riders marked ready to go inside the pickup zone, then to available riders in the same zone, then to available riders in adjacent zones. Busy, on-break and offline riders are never offered an order.\n\n2. BATCHING\nTwo orders may be batched only when both kitchens sit within 800 metres of each other and both drop points sit within 1.2 kilometres. Batching is never applied to an order containing frozen items.\n\n3. ZONE PAUSE\nA zone is paused when the available rider count falls below four, when a weather alert is active, or when the average pickup wait crosses 12 minutes. Customers in a paused zone see the pause before they reach checkout.\n\n4. MANUAL OVERRIDE\nThe operations desk may override allocation for a VIP order or a service recovery. Every override is logged with a reason code.\n\n---\nInternal document. Sample content, seeded for demonstration purposes."
+    },
+    {
+        "title": "Terms of Service",
+        "slug": "terms-of-service",
+        "category": "Legal",
+        "summary": "The agreement between My Quick Yummy and anyone using the platform.",
+        "version": "5.1",
+        "isPublished": true,
+        "content": "1. THE SERVICE\nMy Quick Yummy is a marketplace connecting customers with partner kitchens and independent delivery partners. We do not cook the food and we do not employ the riders.\n\n2. ACCOUNTS\nYou are responsible for the accuracy of your account details and for keeping your credentials confidential. One person, one account.\n\n3. PRICING\nPrices are set by the partner kitchen. Taxes, delivery fee and any packaging charge are itemised before payment. The total shown at checkout is the total charged.\n\n4. ACCEPTABLE USE\nThe platform may not be used to place fraudulent orders, to abuse riders or kitchen staff, or to scrape listings at scale.\n\n5. LIABILITY\nOur liability for any single order is limited to the value of that order.\n\n6. CHANGES\nMaterial changes to these terms are notified in the app 14 days before they take effect.\n\n---\nSample content, seeded for demonstration purposes."
+    },
+    {
+        "title": "Privacy Policy",
+        "slug": "privacy-policy",
+        "category": "Legal",
+        "summary": "What personal data we collect, why we collect it, and how long we keep it.",
+        "version": "3.6",
+        "isPublished": true,
+        "content": "1. WHAT WE COLLECT\nAccount details you give us (name, email, delivery address), order history, and device and location data while an order is active.\n\n2. WHY\nTo route your order, to show a rider where to go, to process payment, and to support you when something goes wrong.\n\n3. WHAT WE DO NOT DO\nWe do not sell personal data. Riders see your address and first name only while a delivery is active, and lose that access on completion.\n\n4. PAYMENT DATA\nCard details are tokenised by our payment processor and are never stored on our servers. We retain only the last four digits and the card network.\n\n5. RETENTION\nOrder records are kept for seven years to satisfy tax law. Location traces are deleted 30 days after delivery. Deleting your account removes your profile and addresses within 30 days.\n\n6. YOUR RIGHTS\nYou may request a copy of your data, a correction, or deletion by writing to privacy@myquickyummy.com.\n\n---\nSample content, seeded for demonstration purposes."
+    }
+]

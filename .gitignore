@@ -1,0 +1,69 @@
+# ---------------------------------------------------------------------------
+# Repository-wide ignores.
+#
+# There was no root .gitignore, which is how a stray node_modules/ ended up
+# committed at the top level of this repo.
+# ---------------------------------------------------------------------------
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+jspm_packages/
+
+# Build output
+build/
+dist/
+out/
+coverage/
+.nyc_output/
+
+# Environment — secrets never belong in git
+.env
+.env.*
+!.env.example
+
+# The list of literal values fed to scripts/purge-secrets-from-history.sh.
+# It holds real secrets in plaintext; only the .example template is committed.
+scripts/secrets-to-purge.txt
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Runtime / caches
+.cache/
+.parcel-cache/
+.eslintcache
+*.pid
+*.seed
+*.pid.lock
+
+# Editors
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Docker
+.docker/
+
+# MongoDB data volume when running via docker-compose
+mongo-data/

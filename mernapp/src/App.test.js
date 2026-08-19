@@ -1,8 +1,17 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import { MemoryRouter } from 'react-router-dom';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+import { CartProvider } from './components/ContextReducer';
+import Login from './screens/Login';
+
+test('renders the login screen', () => {
+  render(
+    <CartProvider>
+      <MemoryRouter>
+        <Login />
+      </MemoryRouter>
+    </CartProvider>
+  );
+
+  expect(screen.getByRole('heading', { name: /welcome/i })).toBeInTheDocument();
 });

@@ -1,0 +1,65 @@
+# ---------------------------------------------------------------------------
+# Full local stack: MongoDB + API + storefront.
+#
+#   docker compose up --build
+#   docker compose exec api npm run seed
+#
+# Storefront: http://localhost:3000   API: http://localhost:5000
+# ---------------------------------------------------------------------------
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: mqy-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./mernapp/backend
+    container_name: mqy-api
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+    ports:
+      - "5000:5000"
+    environment:
+      PORT: 5000
+      NODE_ENV: production
+      CORS_ORIGIN: http://localhost:3000
+      MONGO_URI: mongodb://mongo:27017/myqymern
+      # Override every secret below before running this anywhere but localhost.
+      # The placeholder lengths are not arbitrary: config/env.js rejects a signing
+      # secret under 32 characters, and rejects JWT_SECRET and ADMIN_JWT_SECRET
+      # being equal, so a misconfigured container fails to boot instead of
+      # starting with no real authentication.
+      JWT_SECRET: ${JWT_SECRET:-change-me-customer-secret-min-32-chars-long}
+      JWT_EXPIRES_IN: 7d
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@myquickyummy.com}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-MqyAdmin@2024}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET:-change-me-admin-secret-min-32-chars-and-different}
+      ADMIN_JWT_EXPIRES_IN: 12h
+
+  web:
+    build:
+      context: ./mernapp
+      args:
+        REACT_APP_API_URL: http://localhost:5000
+    container_name: mqy-web
+    restart: unless-stopped
+    depends_on:
+      - api
+    ports:
+      - "3000:80"
+
+volumes:
+  mongo-data:

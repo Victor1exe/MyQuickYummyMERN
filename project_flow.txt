@@ -1,0 +1,635 @@
+===============================================================================
+ MY QUICK YUMMY - PROJECT FLOW
+===============================================================================
+ A MERN food delivery application.
+
+   React 18 (CRA)  ---HTTP--->  Express 4  --->  MongoDB (Mongoose 6)
+      :3000                       :5000              :27017
+
+ This document describes how a request travels through the system, end to end.
+
+
+-------------------------------------------------------------------------------
+ 1. DIRECTORY MAP
+-------------------------------------------------------------------------------
+
+ MyQuickYummyMERN/
+ |
+ +-- docker-compose.yml          mongo + api + web
+ +-- .dockerignore              applies only to a root-context build
+ +-- .gitignore                 repo-wide; node_modules, build output, .env
+ +-- README.md                   setup, API reference, security runbook
+ +-- CLAUDE.md                   conventions for agents working here
+ +-- project_flow.txt            this file
+ +-- requirements.txt            prerequisites and dependency manifest
+ |
+ +-- .githooks/
+ |   +-- pre-commit             blocks commits containing secrets
+ |                              enable: git config core.hooksPath .githooks
+ +-- scripts/
+ |   +-- purge-secrets-from-history.sh
+ |                              redacts committed secrets from git history
+ |                              (dry run by default; --apply to rewrite)
+ |                              holds NO secret material itself - the values
+ |                              come from the git-ignored list below
+ |   +-- secrets-to-purge.example
+ |                              template for scripts/secrets-to-purge.txt,
+ |                              one literal value per line (git-ignored)
+ |
+ +-- mernapp/
+     |
+     +-- Dockerfile              CRA build -> nginx
+     +-- .dockerignore          MUST live here: Docker reads it from the build
+     |                          CONTEXT root, and compose builds ./mernapp
+     +-- nginx.conf              SPA fallback for client-side routes
+     +-- .env                    REACT_APP_API_URL          (git-ignored)
+     +-- .env.example            committed template
+     |
+     +-- public/index.html       root div, cart-root portal div, Font Awesome 6
+     |
+     +-- backend/
+     |   +-- Dockerfile
+     |   +-- .dockerignore       MUST live here too - see the note above
+     |   +-- .env                MONGO_URI, JWT secrets, admin login (git-ignored)
+     |   +-- .env.example        committed template
+     |   +-- index.js            express app, cors, route mounting, boot
+     |   |
+     |   +-- config/
+     |   |   +-- env.js          validates + exports every env var, fails fast
+     |   |   +-- db.js           mongoose.connect, no boot-time cache
+     |   |
+     |   +-- middleware/
+     |   |   +-- fetchUser.js    verifies customer JWT   -> req.user
+     |   |   +-- fetchAdmin.js   verifies admin JWT      -> req.admin
+     |   |   +-- asyncHandler.js forwards rejections to the error handler
+     |   |   +-- errorHandler.js notFound + json error responses
+     |   |   +-- rateLimit.js    fixed-window throttle on the auth endpoints,
+     |   |                       in-memory and per-process (see its header)
+     |   |
+     |   +-- models/
+     |   |   +-- User.js          collection: users
+     |   |   +-- Orders.js        collection: orders        (legacy shape)
+     |   |   +-- Receipt.js       collection: receipts      (billing + delivery)
+     |   |   +-- Partner.js       collection: partners      (kitchens)
+     |   |   +-- FoodItem.js      collection: food_items
+     |   |   +-- FoodCategory.js  collection: foodCategory
+     |   |   +-- Rider.js         collection: riders
+     |   |   +-- Policy.js        collection: policies
+     |   |   +-- Faq.js           collection: faqs
+     |   |
+     |   +-- routes/
+     |   |   +-- Createuser.js     POST /api/createuser, /api/loginuser, GET /api/me
+     |   |   +-- DisplayData.js    catalogue, partners, food item detail
+     |   |   +-- OrderData.js      checkout + order history   (auth required)
+     |   |   +-- PublicContent.js  faqs, policies, rider roster + stats
+     |   |   +-- AdminAuth.js      POST /api/admin/login, GET /api/admin/me
+     |   |   +-- Admin.js          overview, orders, and CRUD for 6 resources
+     |   |   +-- adminCrud.js      list/read/create/update/delete factory
+     |   |
+     |   +-- services/
+     |   |   +-- checkout.js       pricing, ETA, rider claim/release, receipts
+     |   |   +-- receiptPdf.js     the A4 PDF receipt (customer AND admin)
+     |   |
+     |   +-- scripts/
+     |   |   +-- smoke-test.js     end-to-end verification (npm run smoke)
+     |   |
+     |   +-- seed/
+     |       +-- seed.js           deterministic seeding
+     |       +-- data/*.json       categories, dishes, kitchens, policies, faqs
+     |
+     +-- src/
+         +-- index.js             ReactDOM root
+         +-- App.js               all routes
+         |
+         +-- services/api.js      API base URL + auth headers + error shaping
+         +-- hooks/useDarkMode.js shared theme state
+         |
+         +-- data/
+         |   +-- homeContent.js   static copy, section list, food facts
+         |   +-- testimonials.js  deterministic testimonial fixtures
+         |
+         +-- components/
+         |   +-- Navbar.js        brand, section links, theme, cart, auth
+         |   +-- Footer.js        section links + policy links + admin link
+         |   +-- Card.js          a dish in the menu grid
+         |   +-- MenuRow.js       a dish in a kitchen menu, with -/+ stepper
+         |   +-- Modal.js         cart portal
+         |   +-- RequireAuth.js   customer route guard
+         |   +-- ContextReducer.js cart state (useReducer + context)
+         |   +-- Carousal.js      standalone carousel (unrouted)
+         |   +-- home/            one component per home-page band
+         |
+         +-- screens/
+         |   +-- Home.js          composition root for the home page
+         |   +-- Login.js  Signup.js
+         |   +-- Cart.js   MyOrder.js
+         |   +-- FoodDetail.js    dish + kitchen + full menu + similar
+         |   +-- KitchenView.js   one kitchen, menu grouped by category
+         |   +-- Policies.js      public policy reader
+         |   +-- NotFound.js
+         |   +-- payment.js       payment mock (unrouted)
+         |   +-- admin/
+         |       +-- AdminLogin.js       env-backed credentials
+         |       +-- AdminLayout.js      sidebar + session guard
+         |       +-- AdminDashboard.js   overview of every section
+         |       +-- AdminResource.js    generic table + form manager
+         |       +-- AdminOrders.js      read-only order feed
+     |       +-- AdminReceipts.js    receipts, status changes, PDF download
+         |       +-- resourceConfig.js   columns + fields per resource
+         |
+         +-- styles/              one stylesheet per screen/component
+
+
+-------------------------------------------------------------------------------
+ 2. BOOT SEQUENCE
+-------------------------------------------------------------------------------
+
+ API
+   node index.js
+     -> require config/env.js
+          reads backend/.env via dotenv
+          throws immediately if MONGO_URI / JWT_SECRET / ADMIN_* are missing
+          also throws if JWT_SECRET === ADMIN_JWT_SECRET, or if either is
+          shorter than 32 characters
+     -> connectDB()                       awaits a real connection
+     -> app.listen(PORT)                  only after the database is up
+
+   The port opens only after Mongo is reachable, so the API never serves a
+   request it cannot fulfil.
+
+ Storefront
+   index.js -> App.js
+     -> imports bootstrap-dark css + bundle js
+     -> imports styles/tokens.css        (design tokens, global base)
+     -> CartProvider wraps the router
+     -> BrowserRouter renders the route table
+
+
+-------------------------------------------------------------------------------
+ 3. THE ORDERING FLOW  (the main customer path)
+-------------------------------------------------------------------------------
+
+ STEP 1 - CATEGORY
+ -----------------
+   Home mounts
+     GET /api/foodData
+       -> DisplayData.loadCatalog()
+       -> FoodItem.find().populate('partner')  +  FoodCategory.find()
+       -> responds [ items, categories ]
+
+     Home also fires, independently (Promise.allSettled, so one failure only
+     degrades one band):
+       GET /api/partners        -> KitchensSection
+       GET /api/faqs            -> FaqSection
+       GET /api/policies        -> DeliveryPartnersSection
+       GET /api/riders?limit=8  -> DeliveryPartnersSection
+       GET /api/riders/stats    -> DeliveryPartnersSection + StatsSection
+
+   CategoryChooser renders the category grid with a dish count per tile.
+   Clicking a tile:
+     setSelectedCategory(name)
+     reset per-category paging
+     scrollIntoView('#menu')
+
+
+ STEP 2 - DISH
+ -------------
+   FoodMenuSection renders the filtered categories, two Cards at a time,
+   with prev/next arrows per category.
+
+   Each Card shows: image, name, kitchen, description, veg marker, rating,
+   prep time, calories, a qty select, a size select and the price.
+
+     "Add to Cart"  -> dispatch ADD or UPDATE on the cart reducer
+                       (a cart line is keyed by id + size)
+     click the card -> navigate('/food/:id')
+
+
+ STEP 3 - KITCHEN
+ ----------------
+   FoodDetail mounts
+     GET /api/foodItems/:id
+       -> the dish, populated with its partner
+       -> sameKitchen : every other dish from that partner
+       -> similar     : up to 8 dishes in the same category elsewhere
+
+   Renders:
+     - the dish in full, with nutrition and its own qty stepper
+     - a kitchen banner (rating, address, hours, delivery time)
+     - "More from <kitchen>"  -> MenuRow list with - / + steppers
+     - "Similar <category> elsewhere"
+
+   Every MenuRow "Add" dispatches into the same cart.
+
+   KitchenView (/kitchen/:id) is the same idea from the kitchen's side:
+     GET /api/partners/:id  -> partner + full menu, grouped by category.
+
+
+ STEP 4 - CART AND CHECKOUT
+ --------------------------
+   Navbar "My Cart" opens Modal -> Cart (portal into #cart-root).
+
+   Checkout:
+     POST /api/orderData
+       headers: auth-token: <customer JWT>
+       body:    { order_data: [...], order_date }
+
+     -> fetchUser verifies the token and sets req.user
+     -> the route uses req.user.email  -- NOT anything from the body
+     -> services/checkout.createReceipt():
+          priceOrder()    subtotal, delivery fee (free over Rs.499),
+                          packaging Rs.15, GST 5%, total
+          randomEta()     35-75 minutes, crypto.randomInt, server side
+          assignRider()   findOneAndUpdate on { status in [available,
+                          ready_to_go] } -> sets status busy, sorted by
+                          rating. Match-and-write in ONE operation, so two
+                          simultaneous checkouts cannot claim the same rider.
+          Receipt.create()
+     -> Order.findOneAndUpdate({ email }, { $push: { order_data: order } },
+                               { upsert: true })
+     -> responds { success, receipt }
+
+   Legacy stored shape (unchanged so old orders still render). The first
+   entry now also carries receiptNo, which links it to the receipts row:
+     order_data: [
+       [ { Order_date, receiptNo }, item, item, ... ],   <- one order
+       [ { Order_date, receiptNo }, item, ... ],
+     ]
+
+   History:
+     POST /api/myOrderData  (auth) -> { orderData, receipts } -> MyOrder
+
+
+ STEP 5 - CONFIRMATION, TRACKING AND RECEIPT
+ -------------------------------------------
+   Cart receives the receipt and calls startDelivery(receipt) on
+   DeliveryContext, which stores it under localStorage 'mqy-active-delivery'.
+
+   (a) OrderPlacedPopup                            0 - 5 seconds
+       Full-screen confirmation: the receipt number, the ETA in minutes and
+       the assigned delivery partner's name, vehicle and rating. A 4px bar
+       drains over exactly five seconds, then the popup hides itself.
+
+   (b) DeliveryTracker                             5 seconds -> ETA
+       A fixed rectangular block at the bottom of the viewport. A bike emoji
+       rides the leading edge of a fill that grows left to right:
+
+           progress = (now - placedAt) / (etaAt - placedAt)
+
+       Derived from the SERVER timestamps on every tick, not accumulated
+       locally, so it stays correct across a reload or a backgrounded tab.
+       The stage label moves through placed -> cooking -> picked up -> out
+       for delivery -> arriving as progress crosses 15/45/70/95%.
+       Can be minimised to a floating pill.
+
+   (c) On reaching zero
+       POST /api/orders/:receiptNo/complete  (auth, idempotent)
+         -> receipt.status = delivered, deliveredAt set
+         -> releaseRider(): rider back to 'available', totalDeliveries + 1
+       The bar turns green and can be dismissed.
+
+   (d) PDF receipt
+       GET /api/orders/:receiptNo/receipt.pdf   (auth)
+         -> services/receiptPdf.buildReceiptPdf() streams an A4 document:
+            orange header band + receipt number, order details and delivery
+            address in two columns, the assigned rider, an itemised table
+            with the cooking kitchen under each dish, right-aligned totals,
+            and a policy footer.
+       The browser cannot use a plain <a href> because the endpoint needs an
+       auth header, so services/api.apiDownload fetches the bytes and saves
+       them from a blob URL.
+
+       The admin console downloads the SAME document from
+       GET /api/admin/receipts/:receiptNo/receipt.pdf - one generator, so
+       the customer's copy and the operator's copy can never diverge.
+
+
+-------------------------------------------------------------------------------
+ 4. AUTHENTICATION
+-------------------------------------------------------------------------------
+
+ CUSTOMER
+   POST /api/createuser
+     express-validator checks email/name/password/location
+     duplicate email -> 409
+     bcrypt hash (10 rounds) -> User.create
+
+   POST /api/loginuser
+     bcrypt.compare
+     identical response for "no such user" and "wrong password", so the
+     endpoint cannot be used to enumerate registered emails
+     -> jwt.sign({ user: { id } }, JWT_SECRET, { expiresIn })
+
+   Browser stores authToken + userEmail in localStorage.
+   services/api.js attaches it as the `auth-token` header when auth: 'user'.
+   A 401 response clears the stored session automatically.
+
+ ADMIN
+   POST /api/admin/login
+     constant-time compare against ADMIN_EMAIL / ADMIN_PASSWORD from .env
+     -> jwt.sign({ admin: { email, role } }, ADMIN_JWT_SECRET)
+
+   Stored as adminToken, sent as the `admin-token` header.
+   Signed with a DIFFERENT secret than customer tokens, so a customer token
+   can never be replayed against an admin route.
+
+   AdminLayout calls GET /api/admin/me on mount and redirects to
+   /admin/login if the token is missing, expired or invalid.
+
+ ROUTE PROTECTION
+   Frontend : RequireAuth guards /myOrder; AdminLayout guards /admin/*
+   Backend  : fetchUser guards /api/orderData, /api/myOrderData, /api/me
+              fetchAdmin guards every /api/admin/* route except login
+
+
+-------------------------------------------------------------------------------
+ 5. ADMIN CONSOLE AND THE SYNC PATH
+-------------------------------------------------------------------------------
+
+   /admin/login   -> credentials from backend/.env
+   /admin         -> AdminDashboard   GET /api/admin/overview
+   /admin/partners   |
+   /admin/riders     |
+   /admin/categories |-> AdminResource, driven by resourceConfig.js
+   /admin/items      |   GET/POST/PUT/DELETE /api/admin/<resource>
+   /admin/policies   |
+   /admin/faqs       |
+   /admin/receipts-> AdminReceipts    GET  /api/admin/receipts
+                                      PUT  /api/admin/receipts/:no/status
+                                      GET  /api/admin/receipts/:no/receipt.pdf
+   /admin/orders  -> AdminOrders      GET /api/admin/orders
+
+   SYNC
+     admin writes  ->  MongoDB collection
+     storefront reads <-  the same collection, live, on the next request
+
+     There is no cache between them. An earlier version loaded the whole
+     catalogue into `global.food_items` once at boot, so admin edits stayed
+     invisible until the server restarted; that cache is gone.
+
+     Concretely:
+       admin adds a dish        -> appears in its category on the home page
+       admin toggles isAvailable-> the dish drops out of /api/foodData
+       admin changes a rider's
+         status to "busy"       -> the live fleet board recounts
+       admin publishes a policy -> readable at /policies/<slug>
+       admin adds an FAQ        -> appears in the FAQ accordion
+
+     And in the other direction - customer action reaching the admin:
+       customer checks out      -> a receipt appears in /admin/receipts and
+                                   on the dashboard's "deliveries in flight"
+       rider auto-assigned      -> that rider flips to busy, so the fleet
+                                   board and the admin rider list both drop
+                                   one from "available"
+       tracker countdown ends   -> receipt marked delivered, rider released
+                                   to available, totalDeliveries + 1
+       admin sets status to
+         delivered / cancelled  -> releases the rider from the other side;
+                                   guarded so a rider is only released once
+                                   and only a real delivery is counted
+
+
+-------------------------------------------------------------------------------
+ 6. HOME PAGE SECTION ORDER
+-------------------------------------------------------------------------------
+
+   Navbar                       (sticky; section links + Explore dropdown)
+   HeroSection                  search box over a full-bleed image
+   #categories  CategoryChooser        step 1 of the ordering flow
+   #menu        FoodMenuSection        step 2 - paged Card grid
+   #kitchens    KitchensSection        partner kitchens, filterable by type
+   #riders      DeliveryPartnersSection fleet counters, roster, rider policy
+   #partner-stories  TestimonialCarousel
+   #customers   CustomersSection
+   #customer-stories TestimonialCarousel
+   #stats       StatsSection
+   #diet        DietCalculatorSection  Mifflin-St Jeor + menu suggestions
+   #faq         FaqSection             accordion, from the faqs collection
+   #plans       FuturePlansSection
+   #updates     FutureUpdatesSection
+   #about       AboutCompanySection    timeline + info cards
+   Footer                       section links, policy links, admin link
+
+   Navbar and Footer both scroll to these ids. From a non-home route they
+   navigate home first, then scroll once the target has mounted.
+
+
+-------------------------------------------------------------------------------
+ 7. STATE MANAGEMENT
+-------------------------------------------------------------------------------
+
+   CART      React context + useReducer  (components/ContextReducer.js)
+             actions: ADD | UPDATE | REMOVE | DROP
+             a line is keyed by (id, size) - the same dish in a half and a
+             full portion are two separate lines
+             in memory only; cleared on reload, and on successful checkout
+
+   DELIVERY  React context (components/delivery/DeliveryContext.js)
+             the one order currently in flight
+             persisted to localStorage 'mqy-active-delivery' so the tracker
+             survives navigation and reload; cleared when the session ends
+             mounted once at App level via StorefrontDelivery, which hides
+             it on /admin routes
+
+   THEME     hooks/useDarkMode
+             localStorage 'darkMode' + a window CustomEvent, so Navbar, Home
+             and the admin console all re-theme together
+
+   SESSION   localStorage: authToken, userEmail, adminToken
+             read and written only through services/api.js
+
+   PAGE DATA useState per screen, fetched in useEffect, with a `cancelled`
+             flag in the cleanup so a late response cannot set state on an
+             unmounted component
+
+
+-------------------------------------------------------------------------------
+ 8. ERROR HANDLING
+-------------------------------------------------------------------------------
+
+   BACKEND
+     asyncHandler wraps every async route so a rejected promise reaches the
+     error handler instead of hanging the request
+     notFound      -> 404 json
+     errorHandler  -> { success: false, error }, stack in development only
+     validation    -> 400 with the express-validator array
+     auth failure  -> 401 / 403
+
+   FRONTEND
+     services/api.js parses the body, throws an Error carrying the server's
+     message and status, and clears the session on 401
+     screens render a loading state, an error state and an empty state
+     the home page's supporting requests use Promise.allSettled, so one
+     failing endpoint degrades one band rather than the whole page
+
+
+-------------------------------------------------------------------------------
+ 9. STYLING
+-------------------------------------------------------------------------------
+
+   All CSS lives in src/styles/, one file per screen or component, imported
+   by the component that uses it.
+
+   NOTE: this project previously put every rule inside <style jsx> blocks in
+   the component files. <style jsx> is a Next.js feature - under Create React
+   App it renders a plain global <style> tag and React warns about the unknown
+   `jsx` prop. The rules were global anyway, so extracting them changed the
+   file layout, not the design.
+
+   tokens.css   :root (light) and .dark (dark) custom properties, plus the
+                body/link/button/skip-link base
+   login.css,   these screens define their own palette. Their tokens are
+   signup.css,  scoped to the screen's container - not :root - because a
+   myorder.css  :root override leaked the auth palette into every other page
+                for the rest of the session.
+
+   Visual language, used by the storefront and the admin console alike:
+     gradient   #fc8019 -> #f55d2c
+     radii      12-16px
+     shadow     var(--shadow)
+     hover      translateY(-5px) + a deeper shadow
+     font       'SF Pro Display', -apple-system, BlinkMacSystemFont
+     icons      Font Awesome 6 (CDN, public/index.html)
+
+
+-------------------------------------------------------------------------------
+ 10. DATA MODEL
+-------------------------------------------------------------------------------
+
+   Partner (partners)
+     name, type[Restaurant|Hotel|Cloud Kitchen|Food Stall|Bakery|Cafe],
+     description, img, cuisines[], address, city, state, phone, email,
+     rating, ratingCount, avgCostForTwo, deliveryTimeMins, fssaiLicense,
+     openingTime, closingTime, isActive
+        |
+        | 1 : many
+        v
+   FoodItem (food_items)
+     name, CategoryName, img, description,
+     options: [ { half, full } ]        <- legacy shape, kept as-is
+     partner -> Partner._id, partnerName (denormalised for legacy rows)
+     isVeg, isBestseller, rating, prepTimeMins,
+     calories, protein, carbs, fat,     <- drives the diet calculator
+     isAvailable
+        ^
+        | CategoryName (string, not a ref - matches the original data)
+        |
+   FoodCategory (foodCategory)
+     CategoryName, description, img, icon, sortOrder, isActive
+
+   Rider (riders)
+     name, phone, email, city, state, zone, vehicle,
+     status[available|ready_to_go|busy|on_break|offline],
+     shift, rating, totalDeliveries, isVerified, isActive, joinedAt
+
+   Policy (policies)
+     title, slug, category, summary, content, version, isPublished, updatedBy
+
+   Faq (faqs)
+     question, answer, category, sortOrder, isPublished
+
+   User (users)
+     name, location, email (unique), password (bcrypt), date
+
+   Order (orders)
+     email (unique), order_data[][]        <- legacy shape, kept as-is
+
+   Receipt (receipts)                      <- the record everything reads
+     receiptNo (unique, MQY-YYYYMMDD-XXXXXX)
+     email, customerName, customerAddress
+     items[ { itemId, name, size, qty, price, kitchen } ], kitchens[]
+     subtotal, deliveryFee, packagingFee, gst, total
+     placedAt, etaMinutes, etaAt, deliveredAt
+     rider { riderId, name, phone, vehicle, city, rating }   <- a snapshot,
+       denormalised on purpose: a receipt records what happened, so it must
+       not change when the rider's profile later does
+     status [placed|preparing|picked_up|out_for_delivery|delivered|cancelled]
+
+   Linked by receiptNo:
+     orders.order_data[n][0].receiptNo  ->  receipts.receiptNo
+
+
+-------------------------------------------------------------------------------
+ 11. SEEDING
+-------------------------------------------------------------------------------
+
+   cd mernapp/backend && npm run seed
+   cd mernapp/backend && npm run seed -- --fresh   (wipes first)
+
+   Order: categories -> partners -> items -> riders -> policies -> faqs
+
+   Each dish is assigned to a kitchen whose declared categories include the
+   dish's category, and given rating / prep time / nutrition figures derived
+   from a hash of its name. That makes the seed idempotent: re-running it
+   produces identical numbers rather than reshuffling the whole menu.
+
+   Neither mode touches the users or orders collections.
+
+
+-------------------------------------------------------------------------------
+ 12. TESTING AND VERIFICATION
+-------------------------------------------------------------------------------
+
+   cd mernapp          && npm test        React unit tests (jsdom)
+   cd mernapp          && npm run build   production build
+   cd mernapp/backend  && npm run smoke   end-to-end, needs a live database
+
+   backend/scripts/smoke-test.js boots the real Express app on port 0 (so it
+   never collides with a dev server) and asserts, in order:
+
+     1  service health, and that an unknown route returns a 404 JSON body
+     2  the public catalogue: items carry a description, a kitchen link and
+        nutrition; food item detail returns sameKitchen + similar; partners,
+        FAQs and policies respond; unpublished internal SOPs are NOT exposed
+     3  signup validation, duplicate rejection, login, and that a wrong
+        password and an unknown email return the SAME error (no enumeration)
+     4  authorisation: no token -> 401 on every protected route; a forged
+        token -> 401; a CUSTOMER token cannot reach an admin route; an ADMIN
+        token cannot reach a customer route
+     5  checkout: every line priced from the CATALOGUE, so a cart that lies
+        about price (1 and 999999), dish name and kitchen is billed correctly
+        anyway; delivery fee / GST / total consistent; ETA within 35-75 minutes;
+        etaAt consistent with placedAt; a rider claimed and flipped to busy;
+        the free-rider pool shrinks by exactly one; and an email spoofed in
+        the request body is IGNORED
+     6  order history links to its receipt; receipt.pdf returns real %PDF-
+        bytes and is refused without a token
+     7  live tracking reports minutes remaining; completion marks the receipt
+        delivered, releases the rider, counts the delivery, and is idempotent
+     8  admin: wrong password refused, .env credentials accepted, overview
+        counts populated, receipts visible, the same PDF downloadable, status
+        transitions applied, unknown status rejected with 400
+     9  admin -> storefront sync: create a category and it appears in
+        /api/foodData with no restart; hide it and it disappears; delete it
+    10  cross-customer isolation: a second customer cannot read the first's
+        orders, receipts, or receipt PDF
+    11  checkout input validation and rate limiting: a dish missing from the
+        catalogue, a zero / negative / fractional quantity, an unknown portion
+        size and an empty cart are each rejected with 400; customer login
+        advertises its ceiling; repeated admin logins are blocked with 429 plus
+        a Retry-After. Runs last because it deliberately locks the admin login
+        for the rest of the window
+
+   Test users, orders and receipts are removed afterwards. Seeded catalogue
+   data is never touched.
+
+
+-------------------------------------------------------------------------------
+ 13. ENVIRONMENT VARIABLES
+-------------------------------------------------------------------------------
+
+   backend/.env
+     PORT, NODE_ENV, CORS_ORIGIN
+     MONGO_URI
+     JWT_SECRET, JWT_EXPIRES_IN
+     ADMIN_EMAIL, ADMIN_PASSWORD
+     ADMIN_JWT_SECRET, ADMIN_JWT_EXPIRES_IN
+
+   mernapp/.env
+     REACT_APP_API_URL
+
+   Both are git-ignored; .env.example files sit next to them.
+   config/env.js throws on a missing required variable, so a misconfigured
+   deployment fails at boot instead of running without authentication.
+
+===============================================================================

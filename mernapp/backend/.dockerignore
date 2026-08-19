@@ -1,0 +1,36 @@
+# Build context: ./mernapp/backend  (see docker-compose.yml -> api)
+#
+# Docker reads .dockerignore from the CONTEXT root, not the repository root, so
+# this file has to live here. Without it `COPY . .` drags the host's
+# node_modules — built for Windows — over the Linux install done by
+# `npm ci --omit=dev`, and bakes .env into the image.
+#
+# NOTE: seed/ and scripts/ are deliberately kept, so
+# `docker compose exec api npm run seed` and `npm run smoke` work in the
+# container.
+
+# Dependencies: reinstalled inside the image by `npm ci`.
+node_modules
+**/node_modules
+
+# Secrets. docker-compose passes these as environment variables instead.
+.env
+.env.*
+!.env.example
+
+# Docker's own files
+Dockerfile
+.dockerignore
+
+# VCS, editors, logs
+.git
+.gitignore
+.vscode
+.idea
+*.log
+npm-debug.log*
+
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini

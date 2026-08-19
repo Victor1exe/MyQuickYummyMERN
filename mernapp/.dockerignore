@@ -1,0 +1,41 @@
+# Build context: ./mernapp  (see docker-compose.yml -> web)
+#
+# Docker reads .dockerignore from the CONTEXT root, not the repository root, so
+# this file has to live here. Without it `COPY . .` drags the host's
+# node_modules — built for Windows — over the Linux install done by `npm ci`,
+# and bakes .env into the image.
+
+# Dependencies: reinstalled inside the image by `npm ci`.
+node_modules
+**/node_modules
+
+# The API is built from its own context; the storefront image does not need it.
+backend
+
+# Secrets. REACT_APP_API_URL is supplied as a build arg instead.
+.env
+.env.*
+!.env.example
+
+# Build output
+build
+dist
+coverage
+
+# Docker's own files
+Dockerfile
+.dockerignore
+
+# VCS, editors, logs
+.git
+.gitignore
+.githooks
+.vscode
+.idea
+*.log
+npm-debug.log*
+
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini

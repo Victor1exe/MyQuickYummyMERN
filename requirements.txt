@@ -1,0 +1,211 @@
+===============================================================================
+ MY QUICK YUMMY - REQUIREMENTS
+===============================================================================
+ Everything needed to run this project, and every package it depends on.
+
+ This is a Node/JavaScript project, so dependencies are installed with npm from
+ the package.json files listed below - not from this file. This document is the
+ human-readable manifest: what to install, what version, and why.
+
+   Install:   cd mernapp/backend && npm install
+              cd mernapp          && npm install
+   Seed:      cd mernapp/backend && npm run seed
+   Run:       cd mernapp/backend && npm run dev     (API,        :5000)
+              cd mernapp          && npm start      (storefront,  :3000)
+
+
+-------------------------------------------------------------------------------
+ 1. SYSTEM PREREQUISITES
+-------------------------------------------------------------------------------
+
+  Node.js            >= 16.0.0   (18 LTS or 20 LTS recommended; developed on 24)
+  npm                >= 8.0.0
+  MongoDB            >= 5.0      local instance, or a MongoDB Atlas cluster
+  Modern browser     Chrome / Edge / Firefox / Safari, current release
+
+  Optional, for the containerised stack:
+  Docker Engine      >= 24.0
+  Docker Compose     v2 (bundled with Docker Desktop)
+
+  Network access is required at runtime for:
+    - the MongoDB host (Atlas needs the machine's IP allow-listed)
+    - cdnjs.cloudflare.com          Font Awesome 6 icon stylesheet
+    - db.onlinewebfonts.com         NHaasGroteskDSPro web font
+    - images.unsplash.com, i.imgur.com   dish and kitchen photography
+
+
+-------------------------------------------------------------------------------
+ 2. BACKEND DEPENDENCIES        mernapp/backend/package.json
+-------------------------------------------------------------------------------
+
+  RUNTIME
+  ---------------------------------------------------------------------------
+  express             ^4.21.2    HTTP server and routing
+  mongoose            ^6.13.0    MongoDB ODM; schemas and queries
+  cors                ^2.8.5     Cross-origin policy, incl. preflight handling
+  dotenv              ^16.4.5    Loads backend/.env into process.env
+  bcryptjs            ^2.4.3     Password hashing (10 salt rounds)
+  jsonwebtoken        ^9.0.2     Customer and admin JWTs (separate secrets)
+  express-validator   ^7.0.1     Request body validation
+  pdfkit              ^0.15.2    Generates the PDF order receipt
+
+  DEVELOPMENT
+  ---------------------------------------------------------------------------
+  nodemon             ^3.0.2     Restart on change (npm run dev)
+
+  BUILT-IN NODE MODULES USED
+  ---------------------------------------------------------------------------
+  crypto              Receipt numbers, ETA randomness, constant-time compare
+  path                Resolving the .env location
+
+
+-------------------------------------------------------------------------------
+ 3. FRONTEND DEPENDENCIES       mernapp/package.json
+-------------------------------------------------------------------------------
+
+  RUNTIME
+  ---------------------------------------------------------------------------
+  react               ^18.2.0    UI library
+  react-dom           ^18.2.0    DOM renderer and createPortal (cart modal)
+  react-router-dom    ^6.21.1    Client-side routing, nested admin routes
+  react-scripts       ^5.0.1     Create React App build toolchain
+  bootstrap           ^5.3.2     Grid, navbar and utility classes
+  bootstrap-dark-5    ^1.1.3     The dark Bootstrap theme the design is built on
+  react-bootstrap     ^2.9.2     Badge component in the navbar cart button
+  @mui/material       ^7.1.0     Peer requirement of @mui/icons-material
+  @mui/icons-material ^7.1.0     Delete icon in the cart table
+  @emotion/react      ^11.14.0   MUI styling engine (required peer)
+  @emotion/styled     ^11.14.0   MUI styling engine (required peer)
+  web-vitals          ^2.1.4     Performance reporting hook
+
+  DEVELOPMENT / TEST
+  ---------------------------------------------------------------------------
+  @testing-library/react       ^13.4.0
+  @testing-library/jest-dom    ^5.17.0
+  @testing-library/user-event  ^13.5.0
+
+  LOADED FROM CDN, NOT NPM       see mernapp/public/index.html
+  ---------------------------------------------------------------------------
+  Font Awesome        6.5.2      All functional UI icons (fas / fab classes)
+  NHaasGroteskDSPro   -          Body web font
+
+
+-------------------------------------------------------------------------------
+ 4. ENVIRONMENT VARIABLES
+-------------------------------------------------------------------------------
+
+  mernapp/backend/.env           (git-ignored; template at .env.example)
+  ---------------------------------------------------------------------------
+  PORT                   no    default 5000
+  NODE_ENV               no    default development
+  CORS_ORIGIN            no    default http://localhost:3000; comma separated
+  MONGO_URI              YES   MongoDB connection string
+  JWT_SECRET             YES   Signs customer tokens
+  JWT_EXPIRES_IN         no    default 7d
+  ADMIN_EMAIL            YES   Admin console login id
+  ADMIN_PASSWORD         YES   Admin console password
+  ADMIN_JWT_SECRET       YES   Signs admin tokens - MUST differ from JWT_SECRET
+  ADMIN_JWT_EXPIRES_IN   no    default 12h
+
+  The server validates these at boot (backend/config/env.js) and refuses to
+  start if a required one is missing, so a misconfigured deployment fails
+  loudly instead of running without authentication. It also refuses to start if
+  JWT_SECRET and ADMIN_JWT_SECRET are equal, or if either is shorter than 32
+  characters - a shared or guessable signing key would let a customer token
+  authenticate as an admin, which is the whole point of keeping two.
+
+  mernapp/.env                   (git-ignored; template at .env.example)
+  ---------------------------------------------------------------------------
+  REACT_APP_API_URL      no    default http://localhost:5000
+
+  Create React App inlines REACT_APP_* at BUILD time and exposes them to the
+  browser. Never put a secret in the frontend .env.
+
+
+-------------------------------------------------------------------------------
+ 5. DATABASE
+-------------------------------------------------------------------------------
+
+  Database name: myqymern (or whatever MONGO_URI points at)
+
+  Collections
+  ---------------------------------------------------------------------------
+  users           customer accounts (bcrypt password hashes)
+  orders          legacy nested-array order history, kept for compatibility
+  receipts        billing + delivery record per checkout; drives the PDF,
+                  the live tracker and the admin receipts screen
+  partners        restaurants, hotels, cloud kitchens, food stalls, bakeries
+  food_items      the menu
+  foodCategory    the categories customers browse first
+  riders          the delivery fleet and its live status
+  policies        rider/partner/customer policies, internal SOPs, legal pages
+  faqs            the FAQ accordion
+
+  Seed data lives in mernapp/backend/seed/data/ and is applied by
+  `npm run seed`. The seed is idempotent - re-running it produces identical
+  values - and never touches the users or receipts collections.
+
+
+-------------------------------------------------------------------------------
+ 6. PORTS
+-------------------------------------------------------------------------------
+
+  3000   React development server (or nginx in the Docker stack)
+  5000   Express API
+  27017  MongoDB
+
+
+-------------------------------------------------------------------------------
+ 7. ONE-TIME REPOSITORY SETUP
+-------------------------------------------------------------------------------
+
+  Enable the secret-scanning pre-commit hook (once per clone):
+
+      git config core.hooksPath .githooks
+
+  It refuses a commit that adds a .env file, either of the two credentials this
+  repo previously leaked OR A FRAGMENT OF ONE, a MongoDB URI with inline
+  credentials, or a secret-shaped variable assigned a literal. Placeholders in
+  .env.example and documentation are exempt.
+  Deliberate override: git commit --no-verify
+
+  Matching by prefix is deliberate: a partial copy of a secret is still a leak.
+
+  Related: scripts/purge-secrets-from-history.sh redacts committed secrets from
+  the history. It contains no secret material itself — the values come from a
+  git-ignored scripts/secrets-to-purge.txt (template: .example alongside it).
+  Rotating the credential at the provider is the only real fix; see the script's
+  header and the README's Security section.
+
+
+-------------------------------------------------------------------------------
+ 8. VERIFYING AN INSTALL
+-------------------------------------------------------------------------------
+
+  Configuration parses (no database needed):
+      cd mernapp/backend && node -e "require('./config/env'); console.log('env ok')"
+
+  Frontend builds:
+      cd mernapp && npm run build
+  A clean build prints "Compiled successfully", or reports only the autoprefixer
+  `color-adjust` warning — that one comes from the bootstrap-dark-5 vendor
+  stylesheet, not from this project's code.
+
+  Frontend unit tests:
+      cd mernapp && npm test
+
+  API responds:
+      curl http://localhost:5000/api/health
+
+  Full end-to-end check (REQUIRES a reachable database):
+      cd mernapp/backend && npm run seed
+      cd mernapp/backend && npm run smoke
+
+  The smoke test boots the real app on a spare port and covers the catalogue,
+  signup/login, every authorisation boundary, checkout arithmetic, ETA bounds,
+  rider assignment and release, the PDF receipt, live tracking, admin CRUD,
+  admin-to-storefront sync and cross-customer isolation. It cleans up the test
+  accounts, orders and receipts it creates, and leaves seeded catalogue data
+  alone.
+
+===============================================================================
