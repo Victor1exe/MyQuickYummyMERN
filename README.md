@@ -266,3 +266,6 @@ the clear — delete them once you are satisfied with the result.
   guide for choosing a meal, not medical advice.
 - The MongoDB URI previously hardcoded in `backend/db.js` is in this repo's git
   history. **Rotate that Atlas password.**
+
+
+Quote the admin password to make it work. 
